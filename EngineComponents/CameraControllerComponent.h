@@ -15,6 +15,11 @@
 class CameraControllerComponent : public CameraComponent
 {
 public:
+
+	CameraControllerComponent();
+
+	CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec4 perspective);
+
 	/**
 	 * @brief apply translate to fps style camera 
 	 * @param translation
@@ -39,9 +44,23 @@ public:
 	*/
 	void FPSLookLeftRight(float angle);
 
+	/**
+	 * @brief applies translation to camera based of the global world axis.
+	 * @param translate 
+	*/
+	void GlobalTranslate(glm::fvec3 translate);
+
+	/**
+	 * @brief applies rotation to camera based of the global world axis.
+	 * @param translate
+	*/
+	void GlobalRotate(glm::fvec3 rotate);
 
 private:
-	glm::fvec3 world_up;
+	
+	/*glm::fvec3 world_X;
+	glm::fvec3 world_Y;
+	glm::fvec3 world_Z;*/
 
 };
 

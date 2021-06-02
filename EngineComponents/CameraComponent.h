@@ -14,7 +14,16 @@
 class CameraComponent
 {
 public:
+	CameraComponent();
+	
+	void setCameraTranslation(glm::fvec3 position);
 
+	void setCameraRotation(glm::fvec3 rotation);
+
+	void setCameraLookAt(glm::fvec3 lookat);
+
+
+	
 
 protected:
 	glm::fvec3 position_;
