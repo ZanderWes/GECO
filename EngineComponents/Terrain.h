@@ -4,7 +4,7 @@
 #include <ios>
 #include <fstream>
 #include <GL\glut.h>
-#include "ImageLoader.h"
+
 
 
 class Terrain

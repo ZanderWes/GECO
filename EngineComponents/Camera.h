@@ -81,8 +81,16 @@ public:
 	*/
 	void setZFar(float z_far);
 
+	/**
+	 * @brief returns the camera view matrix
+	 * @return 
+	*/
 	glm::dmat3 getCameraView();
 
+	/**
+	 * @brief returns camera perspective vec4
+	 * @return 
+	*/
 	glm::fvec4 getCameraPerspective();
 
 	/**
@@ -92,11 +100,13 @@ public:
 	float* getCameraData();
 protected:
 
-private:
-    glm::fvec3 position_;
-    glm::fvec3 forward_;
-    glm::fvec3 up_;
+	glm::fvec3 position_;
+	glm::fvec3 forward_;
+	glm::fvec3 up_;
 	glm::fvec4 perspective_;
 	const glm::fvec3 static_up = { 0,1,0 };
+
+private:
+ 
 };
 
