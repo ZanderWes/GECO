@@ -157,7 +157,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BruteForce.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="EngineComponents.cpp" />
@@ -166,7 +165,6 @@
     <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BruteForce.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="ModelMD.h" />
