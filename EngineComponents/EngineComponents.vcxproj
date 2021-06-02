@@ -158,6 +158,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="CameraControllerComponent.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="EngineComponents.cpp" />
     <ClCompile Include="ModelMD.cpp" />
@@ -166,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="CameraControllerComponent.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="ModelMD.h" />
     <ClInclude Include="Player.h" />
