@@ -1,14 +1,13 @@
 #include "CameraControllerComponent.h"
 
 
-CameraControllerComponent::CameraControllerComponent()
+CameraControllerComponent::CameraControllerComponent() : CameraComponent()
 {
-
 }
 
-CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec4 perspective)
+CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec4 perspective) :
+	CameraComponent(pos, forward, perspective)
 {
-
 }
 
 void CameraControllerComponent::FPSTranslate(glm::fvec3 translation)

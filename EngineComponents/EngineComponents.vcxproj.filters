@@ -45,11 +45,11 @@
     <ClCompile Include="ModelMD.cpp">
       <Filter>Source Files\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="CameraControllerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\CameraComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraControllerComponent.cpp">
+      <Filter>Source Files\CameraComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +68,11 @@
     <ClInclude Include="Terrain.h">
       <Filter>Header Files\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="CameraControllerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CameraComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\CameraComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraControllerComponent.h">
+      <Filter>Header Files\CameraComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
