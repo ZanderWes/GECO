@@ -32,8 +32,10 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 2
-#define ROTATION_SPEED 0.03
+#define ROTATION_SPEED 0.01
 #define MOVEMENT_SPEED_MODEL 1
+
+#define REFRESH_RATE_MS 50
 
 
 
@@ -55,13 +57,16 @@ glm::fvec3 move = { 0,0,0 };
 glm::fvec3 turn = { 0,0,0 };
 glm::fvec3 model_move = { 0,0,0 };
 
+float Previus_Time;
+float Delta_Time;
+
 void Initialize();
 void display();
 void draw();
 void inputEventUpdate();
 void keyboard(unsigned char key, int x, int y);
 void keyboardSpecial(int key, int x, int y);
-void drawCallback(int i) { glutPostRedisplay(); };
+void Update(int i);// { glutPostRedisplay(); };
 void mouseButton(int key, int state, int x, int y);
 void mouseMovePassive(int x, int y);
 
@@ -77,7 +82,8 @@ int main(int argc, char **argv)
 
     Initialize();
 
-    glutTimerFunc(6, drawCallback, 0);
+    glutTimerFunc(REFRESH_RATE_MS, Update, 0);
+    Previus_Time = glutGet(GLUT_ELAPSED_TIME);
 
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
@@ -111,42 +117,42 @@ void keyboard(unsigned char key, int x, int y)
     {
     case 'W':
     {
-        move[2] += MOVEMENT_SPEED;
+        move[2] += MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'w':
     {
-        move[2] += MOVEMENT_SPEED;
+        move[2] += MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'A':
     {
-        move[0] -= MOVEMENT_SPEED;
+        move[0] -= MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'a':
     {
-        move[0] -= MOVEMENT_SPEED;
+        move[0] -= MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'S':
     {
-        move[2] -= MOVEMENT_SPEED;
+        move[2] -= MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 's':
     {
-        move[2] -= MOVEMENT_SPEED;
+        move[2] -= MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'D':
     {
-        move[0] += MOVEMENT_SPEED;
+        move[0] += MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'd':
     {
-        move[0] += MOVEMENT_SPEED;
+        move[0] += MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'm':
@@ -180,23 +186,23 @@ void keyboardSpecial(int key, int x, int y)
     {
     case GLUT_KEY_UP:
     {
-        model_move[2] += MOVEMENT_SPEED_MODEL;
+        model_move[2] += MOVEMENT_SPEED_MODEL * Delta_Time;
         
         break;
     }
     case GLUT_KEY_DOWN:
     {
-        model_move[2] -= MOVEMENT_SPEED_MODEL;
+        model_move[2] -= MOVEMENT_SPEED_MODEL * Delta_Time;
         break;
     }
     case GLUT_KEY_RIGHT:
     {
-        model_move[0] -= MOVEMENT_SPEED_MODEL;
+        model_move[0] -= MOVEMENT_SPEED_MODEL * Delta_Time;
         break;
     }
     case GLUT_KEY_LEFT:
     {
-        model_move[0] += MOVEMENT_SPEED_MODEL;
+        model_move[0] += MOVEMENT_SPEED_MODEL * Delta_Time;
         break;
     }
     default:
@@ -209,7 +215,7 @@ void mouseMovePassive(int x, int y)
 {
     float deltax = x - oldmouse[0];
     float deltay = y - oldmouse[1];
-    turn = { deltax * ROTATION_SPEED * -1, deltay * ROTATION_SPEED *-1, 0 };
+    turn = { deltax * ROTATION_SPEED * -1 * Delta_Time, deltay * ROTATION_SPEED *-1 * Delta_Time, 0 };
 
     oldmouse = { x, y };
 
@@ -243,9 +249,11 @@ void display()
         player.camera.getCameraPerspective()[2], player.camera.getCameraPerspective()[3]);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(player.camera.getCameraView()[0][0], player.camera.getCameraView()[0][1], player.camera.getCameraView()[0][2],
-        player.camera.getCameraView()[1][0], player.camera.getCameraView()[1][1], player.camera.getCameraView()[1][2],
-        player.camera.getCameraView()[2][0], player.camera.getCameraView()[2][1], player.camera.getCameraView()[2][2]);
+
+    glm::dmat3 lookat_matrix = player.camera.getCameraView();
+    gluLookAt(lookat_matrix[0][0], lookat_matrix[0][1], lookat_matrix[0][2],
+        lookat_matrix[1][0], lookat_matrix[1][1], lookat_matrix[1][2],
+        lookat_matrix[2][0], lookat_matrix[2][1], lookat_matrix[2][2]);
 
     draw();
     glutSwapBuffers();
@@ -261,6 +269,18 @@ void draw()
     //Fr.render();
 }
 
+
+void Update(int i)
+{
+   // glutTimerFunc(REFRESH_RATE_MS, Update, 0);
+    //do de delta bro
+    float current_time = glutGet(GLUT_ELAPSED_TIME) ;
+    Delta_Time = (current_time - Previus_Time)/1000;
+    Previus_Time = current_time;
+    Delta_Time = 1;
+    glutPostRedisplay();
+   // Previus_Time = current_time;
+}
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

@@ -29,19 +29,20 @@ void CameraComponent::setCameraLookAt(glm::fvec3 lookat)
 
 }
 
-//glm::fmat3 CameraComponent::getCameraViewMatrix()
-//{
-//	glm::fmat3 temp = {0,0,0 ,0,0,0 ,0,0,0};
-//	return temp;
-//}
-//
-//glm::fvec4 CameraComponent::getCameraProjection()
-//{
-//	return { 0,0,0,0 };
-//}
-//
-//glm::fmat4 CameraComponent::getCameraViewAndProjectionMatrix()
-//{
-//	glm::fmat4 temp;
-//	return temp;
-//}
+glm::fmat3 CameraComponent::getCameraViewMatrix()
+{
+	return glm::fmat3( this->position_, this->forward_, this->up_ );
+}
+
+glm::fvec4 CameraComponent::getCameraProjection()
+{
+	return this->perspective_;
+}
+
+glm::fmat4 CameraComponent::getCameraViewAndProjectionMatrix()
+{
+	glm::fmat4 temp = {position_[0], position_[1], position_[2], 0, 
+		forward_[0], forward_[1], forward_[2], 0, up_[0], up_[1], up_[2],0, 
+		perspective_[0], perspective_[1], perspective_[2], perspective_[3] };
+	return temp;
+}
