@@ -26,7 +26,7 @@ public:
 	 * @param forward 
 	 * @param perspective 
 	*/
-	CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec4 perspective);
+	CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, glm::fvec4 perspective);
 	
 	/**
 	 * @brief set the translation of camera

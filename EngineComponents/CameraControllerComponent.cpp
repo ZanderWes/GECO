@@ -5,8 +5,8 @@ CameraControllerComponent::CameraControllerComponent() : CameraComponent()
 {
 }
 
-CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec4 perspective) :
-	CameraComponent(pos, forward, perspective)
+CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, glm::fvec4 perspective) :
+	CameraComponent(pos, forward, up, perspective)
 {
 }
 
@@ -29,6 +29,26 @@ void CameraControllerComponent::FPSLookUpDown(float angle)
 
 
 void CameraControllerComponent::FPSLookLeftRight(float angle)
+{
+
+}
+
+void CameraControllerComponent::FPSRoll(float angle)
+{
+
+}
+
+void CameraControllerComponent::FPSMoveForwardBackward(float distance)
+{
+
+}
+
+void CameraControllerComponent::FPSMoveLeftRight(float distance)
+{
+
+}
+
+void CameraControllerComponent::FPSMoveUpDown(float distance)
 {
 
 }

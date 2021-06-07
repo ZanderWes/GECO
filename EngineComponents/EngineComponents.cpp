@@ -31,11 +31,11 @@
 #define SCALE_Y 1.8
 #define SCALE_Z 30
 
-#define MOVEMENT_SPEED 2
-#define ROTATION_SPEED 0.01
+#define MOVEMENT_SPEED 1000
+#define ROTATION_SPEED 4
 #define MOVEMENT_SPEED_MODEL 1
 
-#define REFRESH_RATE_MS 50
+#define REFRESH_RATE_MS 0
 
 
 
@@ -47,7 +47,6 @@ BruteForce bF;
 Fractal Fr;
 
 ModelMD modeldata(SOLDIER_MODEL);
-//modeldata->LoadTexture()
 ModelMD* model_data_ptr = &modeldata;
 Md2Object model;//(model_data_ptr);
 
@@ -215,7 +214,8 @@ void mouseMovePassive(int x, int y)
 {
     float deltax = x - oldmouse[0];
     float deltay = y - oldmouse[1];
-    turn = { deltax * ROTATION_SPEED * -1 * Delta_Time, deltay * ROTATION_SPEED *-1 * Delta_Time, 0 };
+    if(deltax < 50 && deltax > -50 && deltay > -50 && deltay < 50)
+        turn = { deltax * ROTATION_SPEED * -1 * Delta_Time, deltay * ROTATION_SPEED *-1 * Delta_Time, 0 };
 
     oldmouse = { x, y };
 
@@ -272,14 +272,13 @@ void draw()
 
 void Update(int i)
 {
-   // glutTimerFunc(REFRESH_RATE_MS, Update, 0);
-    //do de delta bro
+
     float current_time = glutGet(GLUT_ELAPSED_TIME) ;
     Delta_Time = (current_time - Previus_Time)/1000;
     Previus_Time = current_time;
-    Delta_Time = 1;
+    //Delta_Time = 1;
     glutPostRedisplay();
-   // Previus_Time = current_time;
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

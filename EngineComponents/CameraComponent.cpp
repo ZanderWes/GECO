@@ -9,9 +9,12 @@ CameraComponent::CameraComponent()
 	perspective_ = { 90, 600 / 600, 0.01, 10000.0 };
 }
 
-CameraComponent::CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec4 perspective)
+CameraComponent::CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, glm::fvec4 perspective)
 {
-
+	position_ = pos;
+	forward_ = forward;
+	up_ = up;
+	perspective_ = perspective;
 }
 
 void CameraComponent::setCameraPosition(glm::fvec3 position)
