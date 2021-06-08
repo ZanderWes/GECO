@@ -1,7 +1,7 @@
 #include "CameraComponent.h"
 
 
-CameraComponent::CameraComponent()
+CameraComponent::CameraComponent() 
 {
 	position_ = { 0,0,0 };
 	forward_ = { 0,0,1 };
@@ -14,16 +14,9 @@ CameraComponent::CameraComponent()
 }
 
 CameraComponent::CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, //glm::fvec4 perspective);
-	float fov, float aspect, float znear, float zfar)
+	float fov, float aspect, float znear, float zfar) : position_(pos), forward_(forward),
+	up_(up), FOV_(fov), aspect_(aspect), z_near_(znear), z_far_(zfar)
 {
-	position_ = pos;
-	forward_ = forward;
-	up_ = up;
-	//perspective_ = perspective;
-	FOV_ = fov;
-	aspect_ = aspect;
-	z_near_ = znear;
-	z_far_ = zfar;
 }
 
 void CameraComponent::setCameraPosition(glm::fvec3 position)

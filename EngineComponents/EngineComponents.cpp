@@ -32,7 +32,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 1000
-#define ROTATION_SPEED 4
+#define ROTATION_SPEED 2
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 0
@@ -214,7 +214,7 @@ void mouseMovePassive(int x, int y)
 {
     float deltax = x - oldmouse[0];
     float deltay = y - oldmouse[1];
-    if(deltax < 50 && deltax > -50 && deltay > -50 && deltay < 50)
+    if(deltax < 100 && deltax > -100 && deltay > -100 && deltay < 100)
         turn = { deltax * ROTATION_SPEED * -1 * Delta_Time, deltay * ROTATION_SPEED *-1 * Delta_Time, 0 };
 
     oldmouse = { x, y };
