@@ -11,13 +11,13 @@ CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 
 {
 }
 
-void CameraControllerComponent::FPSTranslate(glm::fvec3 translation)
+void CameraControllerComponent::FreeFloatingCameraTranslate(glm::fvec3 translation)
 {
 
 }
 
 
-void CameraControllerComponent::FPSRotate(glm::fvec3 rotation)
+void CameraControllerComponent::FreeFloatingCameraRotate(glm::fvec3 rotation)
 {
 
 }

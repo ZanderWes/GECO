@@ -28,16 +28,16 @@ public:
 	 * Z Axis Translation: translates the camera in its forward direction
 	 * @param translation
 	*/
-	void FPSTranslate(glm::fvec3 translation);
+	void FreeFloatingCameraTranslate(glm::fvec3 translation);
 
 	/**
 	 * @brief apply rotate to fps style camera
-	 * X axis Rotation:
-	 * Y axis Rotation:
-	 * Z Axis Rotation:
+	 * X axis Rotation: local camera lookup/down rotation
+	 * Y axis Rotation: local camera left/right rotation
+	 * Z Axis Rotation: local camera rolling rotation
 	 * @param rotation 
 	*/
-	void FPSRotate(glm::fvec3 rotation);
+	void FreeFloatingCameraRotate(glm::fvec3 rotation);
 
 	/**
 	 * @brief apply up/down rotation to fps style camera
@@ -52,19 +52,21 @@ public:
 	void FPSLookLeftRight(float angle);
 
 	/**
-	 * @brief rotates camera along its forward vector
+	 * @brief rotates camera along its forward vector  
 	 * @param angle 
 	*/
 	void FPSRoll(float angle);
 
 	/**
 	 * @brief translates the camera along its relative forward vector
+	 * without translating along the up vector
 	 * @param distance 
 	*/
 	void FPSMoveForwardBackward(float distance);
 
 	/**
 	 * @brief translates the camera along its relative adjacent vector
+	 * without translating along the up vector
 	 * @param distance 
 	*/
 	void FPSMoveLeftRight(float distance);
