@@ -5,8 +5,9 @@ CameraControllerComponent::CameraControllerComponent() : CameraComponent()
 {
 }
 
-CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, glm::fvec4 perspective) :
-	CameraComponent(pos, forward, up, perspective)
+CameraControllerComponent::CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, //glm::fvec4 perspective);
+	float fov, float aspect, float znear, float zfar) : 
+	CameraComponent(pos, forward, up, fov, aspect, znear, zfar)
 {
 }
 

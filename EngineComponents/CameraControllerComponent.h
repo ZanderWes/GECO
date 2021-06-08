@@ -18,7 +18,8 @@ public:
 
 	CameraControllerComponent();
 
-	CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, glm::fvec4 perspective);
+	CameraControllerComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, //glm::fvec4 perspective);
+		float fov, float aspect, float znear, float zfar);
 
 	/**
 	 * @brief apply translate to fps style camera 
