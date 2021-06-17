@@ -22,9 +22,13 @@ public:
 
 	/**
 	 * @brief full constructor
-	 * @param pos 
-	 * @param forward 
-	 * @param perspective 
+	 * @param pos position vector
+	 * @param forward vector
+	 * @param up vector
+	 * @param fov 
+	 * @param aspect 
+	 * @param znear 
+	 * @param zfar 
 	*/
 	CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, //glm::fvec4 perspective);
 		float fov, float aspect, float znear, float zfar);
@@ -98,6 +102,7 @@ protected:
 	glm::fvec3 position_;
 	glm::fvec3 forward_;
 	glm::fvec3 up_;
+	glm::fvec3 look_at_;
 	//glm::fvec4 perspective_;
 
 	float FOV_;
