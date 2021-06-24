@@ -53,10 +53,16 @@ public:
 	void setCameraLookAt(glm::fvec3 lookat);
 
 	/**
+	 * @brief set the forward vector of the cmera view direction
+	 * @param forward 
+	*/
+	void setCameraForward(glm::fvec3 forward);
+
+	/**
 	 * @brief setter for camera FOV on y axis
 	 * @param fovY
 	*/
-	void setFOVy(float fovY);
+	void setFieldOfView(float fov);
 
 	/**
 	 * @brief setter for camera aspect

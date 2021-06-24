@@ -35,6 +35,31 @@ void CameraComponent::setCameraLookAt(glm::fvec3 lookat)
 	this->look_at_ = lookat;
 }
 
+void CameraComponent::setCameraForward(glm::fvec3 forward)
+{
+	this->forward_ = glm::normalize(forward_);
+}
+
+void CameraComponent::setAspect(float aspect)
+{
+	this->aspect_ = aspect; 
+}
+
+void CameraComponent::setFieldOfView(float fov)
+{
+	this->FOV_ = fov;
+}
+
+void CameraComponent::setZFar(float z_far)
+{
+	this->z_far_ = z_far;
+}
+
+void CameraComponent::setZNear(float z_near)
+{
+	this->z_near_ = z_near;
+}
+
 glm::fmat3 CameraComponent::getCameraViewMatrix()
 {
 	return glm::fmat3( this->position_, this->look_at_, this->up_ );
@@ -52,3 +77,4 @@ glm::fmat4 CameraComponent::getCameraViewAndPerspectiveMatrix()
 		FOV_, aspect_, z_near_, z_far_ };
 	return temp;
 }
+
