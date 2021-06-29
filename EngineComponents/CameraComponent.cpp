@@ -13,8 +13,9 @@ CameraComponent::CameraComponent()
 	z_far_ = 10000.0f;
 }
 
-CameraComponent::CameraComponent(glm::fvec3 pos, glm::fvec3 forward, glm::fvec3 up, //glm::fvec4 perspective);
-	float fov, float aspect, float znear, float zfar) : position_(pos), forward_(glm::normalize(forward)),
+CameraComponent::CameraComponent(glm::fvec3 pos, glm::fvec3 forward, 
+	glm::fvec3 up, float fov, float aspect, float znear, float zfar) : 
+	position_(pos), forward_(glm::normalize(forward)), look_at_(glm::normalize(forward)), 
 	up_(glm::normalize(up)), FOV_(fov), aspect_(aspect), z_near_(znear), z_far_(zfar)
 {
 }
@@ -60,9 +61,9 @@ void CameraComponent::setZNear(float z_near)
 	this->z_near_ = z_near;
 }
 
-glm::fmat3 CameraComponent::getCameraViewMatrix()
+glm::dmat3 CameraComponent::getCameraViewMatrix()
 {
-	return glm::fmat3( this->position_, this->look_at_, this->up_ );
+	return glm::dmat3( this->position_, this->forward_ + this->position_, this->up_ );
 }
 
 glm::fvec4 CameraComponent::getCameraPerspective()
@@ -72,9 +73,16 @@ glm::fvec4 CameraComponent::getCameraPerspective()
 
 glm::fmat4 CameraComponent::getCameraViewAndPerspectiveMatrix()
 {
-	glm::fmat4 temp = {position_[0], position_[1], position_[2], 0, 
+	/*glm::fmat4 temp = {position_[0], position_[1], position_[2], 0, 
 		look_at_[0], look_at_[1], look_at_[2], 0, up_[0], up_[1], up_[2],0,
+		FOV_, aspect_, z_near_, z_far_ };*/
+
+	this->forward_ += this->position_;
+
+	glm::fmat4 temp = { position_[0], position_[1], position_[2], 0,
+		forward_[0], forward_[1], forward_[2], 0, up_[0], up_[1], up_[2],0,
 		FOV_, aspect_, z_near_, z_far_ };
+
 	return temp;
 }
 

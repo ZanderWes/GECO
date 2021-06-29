@@ -32,7 +32,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 1000
-#define ROTATION_SPEED 2
+#define ROTATION_SPEED 0.5
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 0
@@ -215,7 +215,7 @@ void mouseMovePassive(int x, int y)
     float deltax = x - oldmouse[0];
     float deltay = y - oldmouse[1];
     if(deltax < 100 && deltax > -100 && deltay > -100 && deltay < 100)
-        turn = { deltax * ROTATION_SPEED * -1 * Delta_Time, deltay * ROTATION_SPEED *-1 * Delta_Time, 0 };
+        turn = { deltax * ROTATION_SPEED * 1 * Delta_Time, deltay * ROTATION_SPEED * 1 * Delta_Time, 0 };
 
     oldmouse = { x, y };
 
@@ -233,8 +233,11 @@ void display()
 
    // inputEventUpdate();
 
-    player.camera.translate(move);
-    player.camera.rotate(turn);
+    /*player.camera.translate(move);
+    player.camera.rotate(turn);*/
+    player.camera_controller.FreeFloatingCameraTranslate(move);
+    player.camera_controller.FreeFloatingCameraRotate(turn);
+
     model_move[1] = bF.getSurfaceHeight(static_cast<int> (model.getTranslate()[0]), static_cast<int>(model.getTranslate()[2]));
     model.setTranslate(model_move);
     move = turn = model_move = { 0,0,0 };
@@ -245,12 +248,16 @@ void display()
         cam.forwardZ, cam.upX, cam.upY, cam.upZ);*/
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(player.camera.getCameraPerspective()[0], player.camera.getCameraPerspective()[1],
-        player.camera.getCameraPerspective()[2], player.camera.getCameraPerspective()[3]);
+
+    glm::fvec4 perspective = player.camera_controller.getCameraPerspective();
+    gluPerspective(perspective[0], perspective[1], perspective[2], perspective[3]);
+    /*gluPerspective(player.camera.getCameraPerspective()[0], player.camera.getCameraPerspective()[1],
+        player.camera.getCameraPerspective()[2], player.camera.getCameraPerspective()[3]);*/
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glm::dmat3 lookat_matrix = player.camera.getCameraView();
+    //glm::dmat3 lookat_matrix = player.camera.getCameraView();
+    glm::dmat3 lookat_matrix = player.camera_controller.getCameraViewMatrix();
     gluLookAt(lookat_matrix[0][0], lookat_matrix[0][1], lookat_matrix[0][2],
         lookat_matrix[1][0], lookat_matrix[1][1], lookat_matrix[1][2],
         lookat_matrix[2][0], lookat_matrix[2][1], lookat_matrix[2][2]);

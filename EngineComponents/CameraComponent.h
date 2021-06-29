@@ -10,6 +10,7 @@
 #pragma once
 
 #include <glm.hpp>
+#include <gtx/rotate_vector.hpp>
 
 class CameraComponent
 {
@@ -89,7 +90,7 @@ public:
 	 * [up vector]
 	 * @return 
 	*/
-	glm::fmat3 getCameraViewMatrix();
+	glm::dmat3 getCameraViewMatrix();
 
 	/**
 	 * @brief returns the camera projection matrix

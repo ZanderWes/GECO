@@ -24,8 +24,8 @@ public:
 	/**
 	 * @brief apply translate to fps style camera 
 	 * X axis Translation: translates the camera to its left/right
-	 * Y axis Translation: translates the camera to its up
-	 * Z Axis Translation: translates the camera in its forward direction
+	 * Y axis Translation: translates the camera to its up/down
+	 * Z Axis Translation: translates the camera in its forward/backwards direction
 	 * @param translation
 	*/
 	void FreeFloatingCameraTranslate(glm::fvec3 translation);
