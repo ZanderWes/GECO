@@ -160,9 +160,11 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraControllerComponent.cpp" />
+    <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="EngineComponents.cpp" />
     <ClCompile Include="ModelMD.cpp" />
+    <ClCompile Include="OBB.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
@@ -170,8 +172,10 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraControllerComponent.h" />
+    <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="ModelMD.h" />
+    <ClInclude Include="OBB.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>

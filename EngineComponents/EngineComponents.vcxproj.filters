@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Loaders">
       <UniqueIdentifier>{55a7cd5f-9db7-4ce0-bf42-05b42ad97ba0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{b23fcf4d-2dfa-44c1-a4f8-3d1580b21dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{0da30c7c-36d7-4222-8280-0b2cfe8270a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponents.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="CameraControllerComponent.cpp">
       <Filter>Source Files\CameraComponents</Filter>
     </ClCompile>
+    <ClCompile Include="OBB.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetection.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -73,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="CameraControllerComponent.h">
       <Filter>Header Files\CameraComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="OBB.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetection.h">
+      <Filter>Header Files\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

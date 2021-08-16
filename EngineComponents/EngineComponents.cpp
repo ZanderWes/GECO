@@ -32,7 +32,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 1000
-#define ROTATION_SPEED 0.5
+#define ROTATION_SPEED 1
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 0
@@ -154,6 +154,16 @@ void keyboard(unsigned char key, int x, int y)
         move[0] += MOVEMENT_SPEED * Delta_Time;
         break;
     }
+    case 'q':
+    {
+        turn[2] += ROTATION_SPEED * Delta_Time +0.2;
+        break;
+    }
+    case 'e':
+    {
+        turn[2] -= ROTATION_SPEED * Delta_Time + 0.2;
+        break;
+    }
     case 'm':
     {
         if (frame_count < modeldata.getFramecount())
@@ -215,11 +225,11 @@ void mouseMovePassive(int x, int y)
     float deltax = x - oldmouse[0];
     float deltay = y - oldmouse[1];
     if(deltax < 100 && deltax > -100 && deltay > -100 && deltay < 100)
-        turn = { deltax * ROTATION_SPEED * 1 * Delta_Time, deltay * ROTATION_SPEED * 1 * Delta_Time, 0 };
+        turn += glm::fvec3({ deltax * ROTATION_SPEED * 1 * Delta_Time, deltay * ROTATION_SPEED * 1 * Delta_Time, 0 });
 
     oldmouse = { x, y };
 
-    glutPostRedisplay();
+   
 }
 
 void mouseButton(int key, int state, int x, int y)
@@ -279,10 +289,14 @@ void draw()
 
 void Update(int i)
 {
-
+    glutTimerFunc(REFRESH_RATE_MS, Update, 0);
     float current_time = glutGet(GLUT_ELAPSED_TIME) ;
     Delta_Time = (current_time - Previus_Time)/1000;
     Previus_Time = current_time;
+
+    //std::cout << "deltatime: " << Delta_Time << std::endl;
+
+    //display();
     //Delta_Time = 1;
     glutPostRedisplay();
 

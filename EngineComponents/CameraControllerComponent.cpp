@@ -31,6 +31,7 @@ void CameraControllerComponent::FreeFloatingCameraRotate(glm::fvec3 rotation)
 	temp_forward += glm::normalize(glm::rotate(this->forward_, rotation[1], camera_up_down_rotation_vector));
 	
 	glm::fvec3 temp_up = glm::normalize(glm::cross(temp_forward, camera_up_down_rotation_vector));
+	temp_up = glm::normalize(glm::rotate(temp_up, rotation[2], temp_forward));
 	
 	this->forward_ = temp_forward;
 	this->up_ = temp_up;
