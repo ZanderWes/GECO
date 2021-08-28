@@ -166,6 +166,7 @@
     <ClCompile Include="ModelMD.cpp" />
     <ClCompile Include="OBB.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,7 @@
     <ClInclude Include="ModelMD.h" />
     <ClInclude Include="OBB.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

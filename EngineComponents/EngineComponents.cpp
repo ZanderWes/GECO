@@ -31,8 +31,8 @@
 #define SCALE_Y 1.8
 #define SCALE_Z 30
 
-#define MOVEMENT_SPEED 1000
-#define ROTATION_SPEED 1
+#define MOVEMENT_SPEED 2000
+#define ROTATION_SPEED 2
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 0
@@ -52,9 +52,9 @@ Md2Object model;//(model_data_ptr);
 
 int frame_count = 0;
 
-glm::fvec3 move = { 0,0,0 };
-glm::fvec3 turn = { 0,0,0 };
-glm::fvec3 model_move = { 0,0,0 };
+glm::dvec3 move = { 0,0,0 };
+glm::dvec3 turn = { 0,0,0 };
+glm::dvec3 model_move = { 0,0,0 };
 
 float Previus_Time;
 float Delta_Time;
@@ -68,6 +68,7 @@ void keyboardSpecial(int key, int x, int y);
 void Update(int i);// { glutPostRedisplay(); };
 void mouseButton(int key, int state, int x, int y);
 void mouseMovePassive(int x, int y);
+void animate(float deltaT);
 
 int main(int argc, char **argv)
 {
@@ -81,14 +82,14 @@ int main(int argc, char **argv)
 
     Initialize();
 
-    glutTimerFunc(REFRESH_RATE_MS, Update, 0);
-    Previus_Time = glutGet(GLUT_ELAPSED_TIME);
-
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(keyboardSpecial);
     glutMouseFunc(mouseButton);
     glutPassiveMotionFunc(mouseMovePassive);
+
+    glutTimerFunc(REFRESH_RATE_MS, Update, 0);
+    Previus_Time = glutGet(GLUT_ELAPSED_TIME);
 
     glutMainLoop();
 }
@@ -175,9 +176,9 @@ void keyboard(unsigned char key, int x, int y)
     }
     case ' ':
     {
-       /* std::cout << "position: " << player.camera.getCameraView()[0][0] << "\n"
-            << player.camera.getCameraView()[0][1] << "\n"  << player.camera.getCameraView()[0][2] << std::endl;*
-        std::cout << "position: " << model.getTranslate()[0] << "\n" <<
+        std::cout << "position: " << player.camera.getCameraView()[0][0] << "\n"
+            << player.camera.getCameraView()[0][1] << "\n"  << player.camera.getCameraView()[0][2] << std::endl;
+        /*std::cout << "position: " << model.getTranslate()[0] << "\n" <<
             model.getTranslate()[1] <<"\n"<< model.getTranslate()[2] << std::endl;*/
 
         break;
@@ -185,7 +186,7 @@ void keyboard(unsigned char key, int x, int y)
     default:
         break;
     }
-    glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void keyboardSpecial(int key, int x, int y)
@@ -217,7 +218,7 @@ void keyboardSpecial(int key, int x, int y)
     default:
         break;
     }
-    glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void mouseMovePassive(int x, int y)
@@ -286,18 +287,20 @@ void draw()
     //Fr.render();
 }
 
+void animate(float deltaT)
+{
+
+}
 
 void Update(int i)
 {
     glutTimerFunc(REFRESH_RATE_MS, Update, 0);
-    float current_time = glutGet(GLUT_ELAPSED_TIME) ;
-    Delta_Time = (current_time - Previus_Time)/1000;
+    float current_time = glutGet(GLUT_ELAPSED_TIME)/1000.0 ;
+    Delta_Time = (current_time - Previus_Time);
     Previus_Time = current_time;
 
-    //std::cout << "deltatime: " << Delta_Time << std::endl;
+    animate(Delta_Time);
 
-    //display();
-    //Delta_Time = 1;
     glutPostRedisplay();
 
 }
