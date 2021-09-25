@@ -31,11 +31,11 @@
 #define SCALE_Y 1.8
 #define SCALE_Z 30
 
-#define MOVEMENT_SPEED 2000
-#define ROTATION_SPEED 2
+#define MOVEMENT_SPEED 100
+#define ROTATION_SPEED 0.2
 #define MOVEMENT_SPEED_MODEL 1
 
-#define REFRESH_RATE_MS 0
+#define REFRESH_RATE_MS 1
 
 
 
@@ -56,8 +56,8 @@ glm::dvec3 move = { 0,0,0 };
 glm::dvec3 turn = { 0,0,0 };
 glm::dvec3 model_move = { 0,0,0 };
 
-float Previus_Time;
-float Delta_Time;
+long double Previus_Time;
+long double Delta_Time;
 
 void Initialize();
 void display();
@@ -68,7 +68,7 @@ void keyboardSpecial(int key, int x, int y);
 void Update(int i);// { glutPostRedisplay(); };
 void mouseButton(int key, int state, int x, int y);
 void mouseMovePassive(int x, int y);
-void animate(float deltaT);
+void animate(long double deltaT);
 
 int main(int argc, char **argv)
 {
@@ -88,7 +88,7 @@ int main(int argc, char **argv)
     glutMouseFunc(mouseButton);
     glutPassiveMotionFunc(mouseMovePassive);
 
-    glutTimerFunc(REFRESH_RATE_MS, Update, 0);
+    glutTimerFunc(REFRESH_RATE_MS, Update, REFRESH_RATE_MS);
     Previus_Time = glutGet(GLUT_ELAPSED_TIME);
 
     glutMainLoop();
@@ -287,15 +287,15 @@ void draw()
     //Fr.render();
 }
 
-void animate(float deltaT)
+void animate(long double deltaT)
 {
 
 }
 
 void Update(int i)
 {
-    glutTimerFunc(REFRESH_RATE_MS, Update, 0);
-    float current_time = glutGet(GLUT_ELAPSED_TIME)/1000.0 ;
+    glutTimerFunc(REFRESH_RATE_MS, Update, REFRESH_RATE_MS);
+    long double current_time = glutGet(GLUT_ELAPSED_TIME)/1000.0 ;
     Delta_Time = (current_time - Previus_Time);
     Previus_Time = current_time;
 
