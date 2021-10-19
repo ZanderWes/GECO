@@ -11,6 +11,9 @@
 #include "Player.h"
 #include "ModelMD.h"
 
+#include <coldet.h>
+#include <cdmath3d.h>
+
 //#include "BruteForce.h"
 // textures
 #define HEIGHTFIELD_MAP "image/height128.raw"
@@ -31,8 +34,8 @@
 #define SCALE_Y 1.8
 #define SCALE_Z 30
 
-#define MOVEMENT_SPEED 100
-#define ROTATION_SPEED 0.2
+#define MOVEMENT_SPEED 200
+#define ROTATION_SPEED 0.3
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 1
