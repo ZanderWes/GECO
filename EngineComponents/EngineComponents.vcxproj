@@ -88,13 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Dependancies\Opengl\freeglut\include;$(SolutionDir)\Dependancies\SOIL\src;$(SolutionDir)\Dependancies\glm;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\include;$(SolutionDir)\Dependancies\coldet\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Dependancies\Opengl\freeglut\include;$(SolutionDir)\Dependancies\SOIL\src;$(SolutionDir)\Dependancies\glm;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\include;$(SolutionDir)\Dependancies\qu3e;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Dependancies\Opengl\freeglut\lib;$(SolutionDir)\Dependancies\coldet\libcoldet\Release;$(SolutionDir)\Dependancies\SOIL\projects\VC9\Debug;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SOIL.lib;glew32.lib;libcoldet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Dependancies\qu3e\qu3e;$(SolutionDir)\Dependancies\Opengl\freeglut\lib;$(SolutionDir)\Dependancies\SOIL\projects\VC9\Debug;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SOIL.lib;glew32.lib;qu3e.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
@@ -108,15 +108,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Dependancies\Opengl\freeglut\include;$(SolutionDir)\Dependancies\SOIL\src;$(SolutionDir)\Dependancies\glm;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\include;$(SolutionDir)\Dependancies\coldet\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Dependancies\Opengl\freeglut\include;$(SolutionDir)\Dependancies\SOIL\src;$(SolutionDir)\Dependancies\glm;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\include;$(SolutionDir)\Dependancies\qu3e;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Dependancies\Opengl\freeglut\lib;$(SolutionDir)\Dependancies\coldet\libcoldet\Release;$(SolutionDir)\Dependancies\SOIL\projects\VC9\Debug;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SOIL.lib;glew32.lib;libcoldet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Dependancies\qu3e\qu3e;$(SolutionDir)\Dependancies\Opengl\freeglut\lib;$(SolutionDir)\Dependancies\SOIL\projects\VC9\Debug;$(SolutionDir)\Dependancies\Opengl\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SOIL.lib;glew32.lib;qu3e.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
@@ -167,6 +167,7 @@
     <ClCompile Include="OBB.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="q3Renderer.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
@@ -181,6 +182,7 @@
     <ClInclude Include="OBB.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="q3Renderer.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>

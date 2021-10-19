@@ -11,8 +11,11 @@
 #include "Player.h"
 #include "ModelMD.h"
 
-#include <coldet.h>
-#include <cdmath3d.h>
+//#include <coldet.h>
+//#include <cdmath3d.h>
+//#include <q3.h>
+#include "q3Renderer.h"
+#include "PhysicsManager.h"
 
 //#include "BruteForce.h"
 // textures
@@ -59,12 +62,20 @@ glm::dvec3 move = { 0,0,0 };
 glm::dvec3 turn = { 0,0,0 };
 glm::dvec3 model_move = { 0,0,0 };
 
+//q3Box box1;
+//q3Vec3 vec;
+
+//q3Renderer render_;
+
+PhysicsManager physics;
+
 long double Previus_Time;
 long double Delta_Time;
 
 void Initialize();
 void display();
 void draw();
+void drawBox();
 void inputEventUpdate();
 void keyboard(unsigned char key, int x, int y);
 void keyboardSpecial(int key, int x, int y);
@@ -112,6 +123,10 @@ void Initialize()
     model_data_ptr->loadTexture(SOLDIER_TEXTURE);
     model.setModel(model_data_ptr);
     model.setScale(2);
+
+    //box1.e = {1,1,1};
+    //box1.local.position = { 1,1,1 };
+    //box1.local.rotation = { 0,0,0,0,0,0,0,0,0 };
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -287,8 +302,17 @@ void draw()
     bF.render();
 
     model.drawObjectFrame(frame_count);
-    //Fr.render();
+
+    drawBox();
+
 }
+
+void drawBox()
+{
+    //box1.Render(box1.local, true, &render_);
+    
+}
+
 
 void animate(long double deltaT)
 {
