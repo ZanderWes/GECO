@@ -1,8 +1,6 @@
 #pragma once
 
-#include "OBB.h"
-//#include "box.h"
-//#include "qu3e/src/q3.h"
+#include "Def_Math_Types_398.h"
 #include "qu3e/src/math/q3Mat3.h"
 #include "qu3e/src/math/q3Transform.h"
 
@@ -13,7 +11,7 @@ class RigidBody
 {
 public:
 	RigidBody() {}
-	//RigidBody()
+	RigidBody(Mass mass, Point3D position);
 
 	void setColliderBox();
 	void Render(q3Render* render) const;

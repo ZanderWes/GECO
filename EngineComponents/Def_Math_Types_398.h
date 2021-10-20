@@ -134,8 +134,8 @@ struct AngularVelocityVec3
 {
     glm::fvec3 value;
     inline AngularVelocityVec3(){}
-    inline AngularVelocityVec3(float num){value = Vector3(num,num,num);}
-    inline AngularVelocityVec3(float x,float y,float z){value = Vector3(x,y,z);}
+    inline AngularVelocityVec3(float num){value = glm::fvec3(num,num,num);}
+    inline AngularVelocityVec3(float x,float y,float z){value = glm::fvec3(x,y,z);}
 };
 
 /**
