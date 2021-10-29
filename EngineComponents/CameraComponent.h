@@ -105,6 +105,8 @@ public:
 	*/
 	glm::fmat4 getCameraViewAndPerspectiveMatrix();
 
+	glm::fvec3 getCameraPosition();
+
 protected:
 	glm::fvec3 position_;
 	glm::fvec3 forward_;

@@ -86,3 +86,6 @@ glm::fmat4 CameraComponent::getCameraViewAndPerspectiveMatrix()
 	return temp;
 }
 
+glm::fvec3 CameraComponent::getCameraPosition() {
+	return this->position_;
+}

@@ -2,7 +2,7 @@
 
 Camera::Camera()
 {
-	position_ = { 0,0,0 };
+	position_ = { 30,0,30 };
 	forward_ = { 0,0,1 };
 	up_ = {0,1,0};
 	perspective_ = {90, 600 / 600, 0.01, 10000.0};

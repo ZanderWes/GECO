@@ -37,8 +37,8 @@
 #define SCALE_Y 1.8
 #define SCALE_Z 30
 
-#define MOVEMENT_SPEED 200
-#define ROTATION_SPEED 0.3
+#define MOVEMENT_SPEED 5
+#define ROTATION_SPEED 0.1
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 1
@@ -65,7 +65,7 @@ glm::dvec3 model_move = { 0,0,0 };
 //q3Box box1;
 //q3Vec3 vec;
 
-//q3Renderer render_;
+q3Renderer render_;
 
 PhysicsManager physics;
 
@@ -83,6 +83,13 @@ void Update(int i);// { glutPostRedisplay(); };
 void mouseButton(int key, int state, int x, int y);
 void mouseMovePassive(int x, int y);
 void animate(long double deltaT);
+
+void setupPhysics() {
+    RigidBody* body1 = new RigidBody;
+
+    
+    physics.AddRigidBody(body1);
+}
 
 int main(int argc, char **argv)
 {
@@ -110,7 +117,7 @@ int main(int argc, char **argv)
 
 void Initialize()
 {
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.3, 0.3, 0.8, 0.5);
     glEnable(GL_DEPTH_TEST);
 
     bF.loadHeightfield(HEIGHTFIELD_MAP, 128);
@@ -124,9 +131,7 @@ void Initialize()
     model.setModel(model_data_ptr);
     model.setScale(2);
 
-    //box1.e = {1,1,1};
-    //box1.local.position = { 1,1,1 };
-    //box1.local.rotation = { 0,0,0,0,0,0,0,0,0 };
+    setupPhysics();
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -194,11 +199,8 @@ void keyboard(unsigned char key, int x, int y)
     }
     case ' ':
     {
-        std::cout << "position: " << player.camera.getCameraView()[0][0] << "\n"
-            << player.camera.getCameraView()[0][1] << "\n"  << player.camera.getCameraView()[0][2] << std::endl;
-        /*std::cout << "position: " << model.getTranslate()[0] << "\n" <<
-            model.getTranslate()[1] <<"\n"<< model.getTranslate()[2] << std::endl;*/
-
+        glm::fvec3 pos = player.camera_controller.getCameraPosition();
+        std::cout << "position" << pos[0] << "  " << pos[1] << "  " << pos[2] << std::endl;
         break;
     }
     default:
@@ -244,7 +246,7 @@ void mouseMovePassive(int x, int y)
     float deltax = x - oldmouse[0];
     float deltay = y - oldmouse[1];
     if(deltax < 100 && deltax > -100 && deltay > -100 && deltay < 100)
-        turn += glm::fvec3({ deltax * ROTATION_SPEED * 1 * Delta_Time, deltay * ROTATION_SPEED * 1 * Delta_Time, 0 });
+        turn += glm::fvec3({ deltax * ROTATION_SPEED * Delta_Time, deltay * ROTATION_SPEED * Delta_Time, 0 });
 
     oldmouse = { x, y };
 
@@ -299,9 +301,9 @@ void display()
 void draw()
 {
 
-    bF.render();
+    //bF.render();
 
-    model.drawObjectFrame(frame_count);
+    //model.drawObjectFrame(frame_count);
 
     drawBox();
 
@@ -310,7 +312,7 @@ void draw()
 void drawBox()
 {
     //box1.Render(box1.local, true, &render_);
-    
+    physics.Render(&render_);
 }
 
 
