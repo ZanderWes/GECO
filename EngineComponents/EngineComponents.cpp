@@ -38,7 +38,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 5
-#define ROTATION_SPEED 0.3
+#define ROTATION_SPEED 0.18
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 1
@@ -281,10 +281,6 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-   // inputEventUpdate();
-
-    /*player.camera.translate(move);
-    player.camera.rotate(turn);*/
     player.camera_controller.FreeFloatingCameraTranslate(move);
     player.camera_controller.FreeFloatingCameraRotate(turn);
 
@@ -292,21 +288,15 @@ void display()
     model.setTranslate(model_move);
     move = turn = model_move = { 0,0,0 };
 
-   // model_move[1] = bF.getHeight(model.getTranslate()[0], model.getTranslate()[2]);
-
-   /* gluLookAt(cam.posX, cam.posY, cam.posZ, cam.forwardX, cam.forwardY,
-        cam.forwardZ, cam.upX, cam.upY, cam.upZ);*/
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     glm::fvec4 perspective = player.camera_controller.getCameraPerspective();
     gluPerspective(perspective[0], perspective[1], perspective[2], perspective[3]);
-    /*gluPerspective(player.camera.getCameraPerspective()[0], player.camera.getCameraPerspective()[1],
-        player.camera.getCameraPerspective()[2], player.camera.getCameraPerspective()[3]);*/
+   
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //glm::dmat3 lookat_matrix = player.camera.getCameraView();
     glm::dmat3 lookat_matrix = player.camera_controller.getCameraViewMatrix();
     gluLookAt(lookat_matrix[0][0], lookat_matrix[0][1], lookat_matrix[0][2],
         lookat_matrix[1][0], lookat_matrix[1][1], lookat_matrix[1][2],
@@ -319,13 +309,10 @@ void display()
 
 void draw()
 {
-
-    //bF.render();
-
-    //model.drawObjectFrame(frame_count);
-
     drawBox();
 
+    //bF.render();
+    //model.drawObjectFrame(frame_count);
 }
 
 void drawBox()
