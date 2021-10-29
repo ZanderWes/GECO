@@ -38,7 +38,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 5
-#define ROTATION_SPEED 0.1
+#define ROTATION_SPEED 0.3
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 1
@@ -85,7 +85,7 @@ void mouseMovePassive(int x, int y);
 void animate(long double deltaT);
 
 void setupPhysics() {
-    RigidBody* body1 = new RigidBody;
+    std::shared_ptr<RigidBody> body1 = std::make_shared<RigidBody>();
 
     
     physics.AddRigidBody(body1);
@@ -118,7 +118,24 @@ int main(int argc, char **argv)
 void Initialize()
 {
     glClearColor(0.3, 0.3, 0.8, 0.5);
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
     glEnable(GL_DEPTH_TEST);
+    
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+    GLfloat ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+    GLfloat diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+    GLfloat specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+    GLfloat light_pos[] = { 10, 10, -10, 1 };
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+
+    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
     bF.loadHeightfield(HEIGHTFIELD_MAP, 128);
     bF.loadHeightfieldTexture(GRASS_TEXTURE, 128);
@@ -132,6 +149,8 @@ void Initialize()
     model.setScale(2);
 
     setupPhysics();
+
+    player.camera_controller.setCameraPosition(glm::fvec3{0,0,-5});
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -180,12 +199,12 @@ void keyboard(unsigned char key, int x, int y)
     }
     case 'q':
     {
-        turn[2] += ROTATION_SPEED * Delta_Time +0.2;
+        move[1] -= MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'e':
     {
-        turn[2] -= ROTATION_SPEED * Delta_Time + 0.2;
+        move[1] += MOVEMENT_SPEED * Delta_Time;
         break;
     }
     case 'm':

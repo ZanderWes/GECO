@@ -12,7 +12,7 @@
 RigidBody::RigidBody()
 {
 	q3AABB aabb;
-	q3Box* box = new q3Box;
+	std::shared_ptr<q3Box> box = std::make_shared<q3Box>();
 	q3Transform transform;
 	//transform.position = q3Vec3(0, 0, 0);
 	//transform.rotation = q3Mat3(1, 1, 1, 1, 1, 1, 1, 1, 1);
@@ -31,9 +31,6 @@ RigidBody::RigidBody()
 	this->mass = 1;
 
 	this->collider_box = box;
-
-
-	//this->collider_box->local.position = q3Vec3(1, 1, 1);
 }
 
 void RigidBody::Render(q3Renderer* render) const
@@ -41,14 +38,17 @@ void RigidBody::Render(q3Renderer* render) const
 	this->collider_box->Render(this->collider_box->local, true, render);
 }
 
-q3Box* RigidBody::getBoxCollider()
+std::shared_ptr<q3Box> RigidBody::getBoxCollider()
 {
 	return this->collider_box; 
 }
 
 Point3D RigidBody::getBodyCentreofMass()
 {
-	
+	Point3D position;
+	auto pos = this->collider_box.get()->local.position;
+	position.value = {pos[0], pos[1], pos[2]};
+	return position;
 }
 
 InertiaVector3 RigidBody::getMomentOfInertia()
@@ -69,6 +69,6 @@ InertiaVector3 RigidBody::getMomentOfInertia()
 
 RigidBody::~RigidBody()
 {
-	delete this->collider_box;
-	this->collider_box = nullptr;
+	/*delete this->collider_box;
+	this->collider_box = nullptr;*/
 }

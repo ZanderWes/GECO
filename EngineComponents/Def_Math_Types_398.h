@@ -43,11 +43,11 @@ struct Acceleration
  * Global accesor name is 'value'
  * e.g. variable_name.value
  */
-struct Inertia
+struct Impulse
 {
     float  value;
-    inline Inertia(){}
-    inline Inertia(float inertia){value = inertia;}
+    inline Impulse(){}
+    inline Impulse(float inertia){value = inertia;}
 };
 
 

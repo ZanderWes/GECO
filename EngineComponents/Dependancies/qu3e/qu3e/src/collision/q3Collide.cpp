@@ -479,8 +479,10 @@ void q3SupportEdge( const q3Transform& tx, const q3Vec3& e, q3Vec3 n, q3Vec3* aO
 // https://box2d.googlecode.com/files/Box2D_Lite.zip
 void q3BoxtoBox( q3Manifold* m, q3Box* a, q3Box* b )
 {
-	q3Transform atx = a->body->GetTransform( );
-	q3Transform btx = b->body->GetTransform( );
+	//q3Transform atx = a->body->GetTransform( );
+	//q3Transform btx = b->body->GetTransform( );
+	q3Transform atx = a->local;
+	q3Transform btx = b->local;
 	q3Transform aL = a->local;
 	q3Transform bL = b->local;
 	atx = q3Mul( atx, aL );
