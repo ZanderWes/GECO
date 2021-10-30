@@ -18,6 +18,14 @@ void PhysicsManager::Render(q3Renderer* render)
 	}
 }
 
+void PhysicsManager::Step(double delta_t)
+{
+	for (auto body : this->body_list)
+	{
+		body.get()->Update(delta_t);
+	}
+}
+
 void PhysicsManager::AddRigidBody(std::shared_ptr<RigidBody> body)
 {
 	this->body_list.push_back(body);

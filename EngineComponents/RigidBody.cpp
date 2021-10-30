@@ -51,6 +51,26 @@ Point3D RigidBody::getBodyCentreofMass()
 	return position;
 }
 
+void RigidBody::setLinearVelocity(VelocityVec3 linear_vel)
+{
+	this->linear_velocity.value = linear_vel.value;
+}
+
+VelocityVec3 RigidBody::getLinearVelocity()
+{
+	return this->linear_velocity;
+}
+
+void RigidBody::setAngularVelocity(AngularVelocityVec3 angular_vel)
+{
+	this->angular_velocity.value = angular_vel.value;
+}
+
+AngularVelocityVec3 RigidBody::getAngularVelocity()
+{
+	return this->angular_velocity;
+}
+
 InertiaVector3 RigidBody::getMomentOfInertia()
 {
 	auto extents = this->collider_box->e;
@@ -66,9 +86,19 @@ InertiaVector3 RigidBody::getMomentOfInertia()
 	return InertiaVector3(Ixx, Iyy, Izz);
 }
 
-
 RigidBody::~RigidBody()
 {
-	/*delete this->collider_box;
-	this->collider_box = nullptr;*/
+	
+}
+
+void RigidBody::Update(float delta_t)
+{
+	applyMovement(delta_t);
+}
+
+void RigidBody::applyMovement(float delta_t)
+{
+	glm::fvec3 temp = this->linear_velocity.value * delta_t;
+
+	this->collider_box.get()->local.position += q3Vec3(temp[0], temp[1], temp[2]);
 }

@@ -86,7 +86,7 @@ void animate(long double deltaT);
 
 void setupPhysics() {
     std::shared_ptr<RigidBody> body1 = std::make_shared<RigidBody>();
-
+    //body1.get()->setLinearVelocity(VelocityVec3(0,0,0.05));
     
     physics.AddRigidBody(body1);
 }
@@ -333,6 +333,8 @@ void Update(int i)
     long double current_time = glutGet(GLUT_ELAPSED_TIME)/1000.0 ;
     Delta_Time = (current_time - Previus_Time);
     Previus_Time = current_time;
+
+    physics.Step(Delta_Time);
 
     animate(Delta_Time);
 
