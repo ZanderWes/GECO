@@ -1,7 +1,7 @@
 
 
 #include "PhysicsManager.h"
-
+#include <iostream>
 
 
 #include "qu3e/src/dynamics/q3Contact.h"
@@ -20,6 +20,8 @@ void PhysicsManager::Render(q3Renderer* render)
 
 void PhysicsManager::Step(double delta_t)
 {
+	checkCollision();
+
 	for (auto body : this->body_list)
 	{
 		body.get()->Update(delta_t);
@@ -38,24 +40,42 @@ void PhysicsManager::checkCollision()
 	{
 		for (int k = i + 1; k < this->body_list.size(); k++)
 		{
-			//std::shared_ptr<q3Box> box1 = this->body_list[i].get()->getBoxCollider();
-			std::shared_ptr<q3Box> box1 = this->body_list[i]->getBoxCollider();
-			std::shared_ptr<q3Box> box2 = this->body_list[k]->getBoxCollider();
+			std::shared_ptr<RigidBody> body1 = this->body_list[i];
+			std::shared_ptr<RigidBody> body2 = this->body_list[k];
+			std::shared_ptr<q3Box> box1 = body1.get()->getBoxCollider();
+			std::shared_ptr<q3Box> box2 = body2.get()->getBoxCollider();
 
 			std::shared_ptr<q3Manifold> collision_check_pair = std::make_shared<q3Manifold>();
 			q3BoxtoBox(collision_check_pair.get(), box1.get(), box2.get());
 
-			if(collision_check_pair.get()->contactCount > 0)
-				this->collision_data_list.push_back(collision_check_pair);
+			if (collision_check_pair.get()->contactCount > 0)
+			{
+				CollisionPair collision;
+				collision.collision_data = collision_check_pair;
+				collision.body1 = body1;
+				collision.body2 = body2;
+
+				this->collision_pair_list.push_back(collision);
+			}
 		}
 	}
 }
 
 void PhysicsManager::solve()
 {
-	if(this->collision_data_list.size() > 0)
-		this->collision_data_list.clear();
+	for (int i = 0; i < collision_pair_list.size(); i++)
+	{
+		std::shared_ptr<q3Manifold> collision_pair = collision_pair_list[i].collision_data;
 
+		std::shared_ptr<RigidBody> body1 = collision_pair_list[i].body1;
+		std::shared_ptr<RigidBody> body2 = collision_pair_list[i].body2;
+
+		q3Box* box1 = collision_pair.get()->A;
+		q3Box* box2 = collision_pair.get()->B;
+
+
+	}
+	this->collision_pair_list.clear();
 }
 
 PhysicsManager::~PhysicsManager() {
@@ -65,7 +85,9 @@ PhysicsManager::~PhysicsManager() {
 		delete body;
 		body = nullptr;
 	}*/
-	body_list.clear();
+	this->collision_data_list.clear();
+	this->collision_pair_list.clear();
+	this->body_list.clear();
 }
 
 Impulse PhysicsManager::calculateCollisionImpulse(InertiaVector3 J1, InertiaVector3 J2,

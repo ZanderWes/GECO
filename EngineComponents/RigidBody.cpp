@@ -11,6 +11,9 @@
 
 RigidBody::RigidBody()
 {
+	this->linear_velocity.value = { 0,0,0 };
+	this->angular_velocity.value = { 0,0,0 };
+
 	q3AABB aabb;
 	std::shared_ptr<q3Box> box = std::make_shared<q3Box>();
 	q3Transform transform;
@@ -49,6 +52,12 @@ Point3D RigidBody::getBodyCentreofMass()
 	auto pos = this->collider_box.get()->local.position;
 	position.value = {pos[0], pos[1], pos[2]};
 	return position;
+}
+
+void RigidBody::setBodyPosition(Point3D position)
+{
+	this->collider_box.get()->local.position =
+		q3Vec3(position.value[0], position.value[1], position.value[2]);
 }
 
 void RigidBody::setLinearVelocity(VelocityVec3 linear_vel)

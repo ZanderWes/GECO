@@ -62,14 +62,12 @@ glm::dvec3 move = { 0,0,0 };
 glm::dvec3 turn = { 0,0,0 };
 glm::dvec3 model_move = { 0,0,0 };
 
-//q3Box box1;
-//q3Vec3 vec;
 
 q3Renderer render_;
 
 PhysicsManager physics;
 
-long double Previus_Time;
+long double Previus_Time = 0;
 long double Delta_Time;
 
 void Initialize();
@@ -79,16 +77,26 @@ void drawBox();
 void inputEventUpdate();
 void keyboard(unsigned char key, int x, int y);
 void keyboardSpecial(int key, int x, int y);
-void Update(int i);// { glutPostRedisplay(); };
+void Update(int i);
 void mouseButton(int key, int state, int x, int y);
 void mouseMovePassive(int x, int y);
 void animate(long double deltaT);
 
 void setupPhysics() {
     std::shared_ptr<RigidBody> body1 = std::make_shared<RigidBody>();
-    //body1.get()->setLinearVelocity(VelocityVec3(0,0,0.05));
-    
+    body1.get()->setBodyPosition(Point3D(0, 0, 0));
+
+    std::shared_ptr<RigidBody> body2 = std::make_shared<RigidBody>();
+    body2.get()->setBodyPosition(Point3D(5, 0, 0));
+    body2.get()->setLinearVelocity(VelocityVec3(-0.1,0,0));
+
+    std::shared_ptr<RigidBody> body3 = std::make_shared<RigidBody>();
+    body3.get()->setBodyPosition(Point3D(0, 2, 0));
+
+
     physics.AddRigidBody(body1);
+    physics.AddRigidBody(body2);
+    physics.AddRigidBody(body3);
 }
 
 int main(int argc, char **argv)
@@ -99,7 +107,7 @@ int main(int argc, char **argv)
     glEnable(GL_TEXTURE_2D);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(800, 600);
-    glutCreateWindow("Task 1: Design and implement Terrain");
+    glutCreateWindow("Physics Demo");
 
     Initialize();
 
@@ -110,7 +118,7 @@ int main(int argc, char **argv)
     glutPassiveMotionFunc(mouseMovePassive);
 
     glutTimerFunc(REFRESH_RATE_MS, Update, REFRESH_RATE_MS);
-    Previus_Time = glutGet(GLUT_ELAPSED_TIME);
+   // Previus_Time = glutGet(GLUT_ELAPSED_TIME);
 
     glutMainLoop();
 }

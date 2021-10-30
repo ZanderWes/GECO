@@ -27,6 +27,7 @@ public:
 
 	InertiaVector3 getMomentOfInertia();
 	Point3D getBodyCentreofMass();
+	void setBodyPosition(Point3D position);
 
 	void setLinearVelocity(VelocityVec3 linear_vel);
 	VelocityVec3 getLinearVelocity();

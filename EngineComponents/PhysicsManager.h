@@ -22,6 +22,13 @@ public:
 	~PhysicsManager();
 
 private:
+	struct CollisionPair
+	{
+		std::shared_ptr<q3Manifold> collision_data;
+		std::shared_ptr<RigidBody> body1;
+		std::shared_ptr<RigidBody> body2;
+	};
+
 
 	void checkCollision();
 	void solve();
@@ -33,6 +40,7 @@ private:
 		Mass m1, Mass m2, AngularVelocityVec3 w1, AngularVelocityVec3 w2, float Ee);
 
 	std::vector<std::shared_ptr<q3Manifold>> collision_data_list;
+	std::vector<CollisionPair> collision_pair_list;
 
 	//RigidBody rigidbody;
 
