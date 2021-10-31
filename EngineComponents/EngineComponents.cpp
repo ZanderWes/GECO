@@ -37,7 +37,7 @@
 #define SCALE_Y 1.8
 #define SCALE_Z 30
 
-#define MOVEMENT_SPEED 5
+#define MOVEMENT_SPEED 1
 #define ROTATION_SPEED 0.18
 #define MOVEMENT_SPEED_MODEL 1
 
@@ -90,7 +90,7 @@ void setupPhysics() {
     //body1.get()->setMass(Mass(30));
 
     std::shared_ptr<RigidBody> body2 = std::make_shared<RigidBody>();
-    body2.get()->setBodyPosition(Point3D(1, 0, 0));
+    body2.get()->setBodyPosition(Point3D(3, -0, 0));
     body2.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.05, 0.05);
     body2.get()->setLinearVelocity(VelocityVec3(-0.3,0,0));
 

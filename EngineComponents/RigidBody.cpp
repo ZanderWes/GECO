@@ -140,4 +140,20 @@ void RigidBody::applyMovement(float delta_t)
 	glm::fvec3 temp = this->linear_velocity.value * delta_t;
 
 	this->collider_box.get()->local.position += q3Vec3(temp[0], temp[1], temp[2]);
+
+	auto rot_matrix = this->collider_box.get()->local.rotation;
+	glm::mat3 rotation_mat = {rot_matrix[0][0], rot_matrix[0][1], rot_matrix[0][2],
+								rot_matrix[1][0], rot_matrix[1][1], rot_matrix[1][2], 
+								rot_matrix[2][0], rot_matrix[2][1], rot_matrix[2][2]};
+	glm::mat4 rotation_matrix = rotation_mat;
+
+	glm::fvec3 angular_delta_t = this->angular_velocity.value * delta_t;
+
+	rotation_matrix = glm::rotate(rotation_matrix, angular_delta_t[0], glm::fvec3(1, 0, 0));
+	rotation_matrix = glm::rotate(rotation_matrix, angular_delta_t[1], glm::fvec3(0, 1, 0));
+	rotation_matrix = glm::rotate(rotation_matrix, angular_delta_t[2], glm::fvec3(0, 0, 1));
+
+	this->collider_box.get()->local.rotation = q3Mat3(rotation_matrix[0][0], rotation_matrix[0][1], rotation_matrix[0][2],
+													rotation_matrix[1][0], rotation_matrix[1][1], rotation_matrix[1][2], 
+													rotation_matrix[2][0], rotation_matrix[2][1], rotation_matrix[2][2]);
 }

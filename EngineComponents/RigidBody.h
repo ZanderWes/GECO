@@ -6,6 +6,7 @@
 #include "qu3e/src/math/q3Math.h"
 #include "qu3e/src/math/q3Transform.h"
 #include "q3Renderer.h"
+#include "gtc/matrix_transform.hpp"
 
 class q3Render;
 struct q3Box;
