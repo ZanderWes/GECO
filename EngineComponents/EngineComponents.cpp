@@ -85,13 +85,18 @@ void animate(long double deltaT);
 void setupPhysics() {
     std::shared_ptr<RigidBody> body1 = std::make_shared<RigidBody>();
     body1.get()->setBodyPosition(Point3D(0, 0, 0));
+    body1.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.30, 0.30);
+    //body1.get()->setLinearVelocity(VelocityVec3(0, 0, 0));
+    //body1.get()->setMass(Mass(30));
 
     std::shared_ptr<RigidBody> body2 = std::make_shared<RigidBody>();
-    body2.get()->setBodyPosition(Point3D(5, 0, 0));
-    body2.get()->setLinearVelocity(VelocityVec3(-0.1,0,0));
+    body2.get()->setBodyPosition(Point3D(1, 0, 0));
+    body2.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.05, 0.05);
+    body2.get()->setLinearVelocity(VelocityVec3(-0.3,0,0));
 
     std::shared_ptr<RigidBody> body3 = std::make_shared<RigidBody>();
-    body3.get()->setBodyPosition(Point3D(0, 2, 0));
+    body3.get()->setBodyPosition(Point3D(-0.2, 0, 0));
+    body3.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.30, 0.30);
 
 
     physics.AddRigidBody(body1);

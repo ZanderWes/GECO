@@ -22,6 +22,8 @@ void PhysicsManager::Step(double delta_t)
 {
 	checkCollision();
 
+	solve();
+
 	for (auto body : this->body_list)
 	{
 		body.get()->Update(delta_t);
@@ -65,14 +67,78 @@ void PhysicsManager::solve()
 {
 	for (int i = 0; i < collision_pair_list.size(); i++)
 	{
+		/*  Getting all the required collision data  */
 		std::shared_ptr<q3Manifold> collision_pair = collision_pair_list[i].collision_data;
+		std::shared_ptr<RigidBody> body_A = collision_pair_list[i].body1;
+		std::shared_ptr<RigidBody> body_B = collision_pair_list[i].body2;
 
-		std::shared_ptr<RigidBody> body1 = collision_pair_list[i].body1;
-		std::shared_ptr<RigidBody> body2 = collision_pair_list[i].body2;
+		q3Box* box_A = collision_pair.get()->A;
+		q3Box* box_B = collision_pair.get()->B;
+		
+		Point3D contact_position(0);
+		for (int i = 0; i < collision_pair.get()->contactCount; i++)
+		{
+			auto temp_pos = collision_pair.get()->contacts[i].position;
+			Point3D contact_(temp_pos[0], temp_pos[1], temp_pos[2]);
 
-		q3Box* box1 = collision_pair.get()->A;
-		q3Box* box2 = collision_pair.get()->B;
+			contact_position.value += contact_.value;
+		}
 
+		contact_position.value /= collision_pair.get()->contactCount;
+		//auto temp_pos = collision_pair.get()->contacts[0].position;
+		//Point3D contact_position(temp_pos[0], temp_pos[1], temp_pos[2]);
+
+		DirectionalVec3 r_A, r_B;
+		r_A.value = contact_position.value - body_A.get()->getBodyCentreofMass().value;
+		r_B.value = contact_position.value - body_B.get()->getBodyCentreofMass().value;
+
+		auto temp_normal = collision_pair.get()->normal;
+		DirectionalVec3 normal(temp_normal[0], temp_normal[1], temp_normal[2]);
+
+		InertiaVector3 inv_J_A, inv_J_B;
+		inv_J_A.value = body_A.get()->getInverseInertiaTensor().value;
+		inv_J_B.value = body_B.get()->getInverseInertiaTensor().value;
+
+		Mass inv_mass_A, inv_mass_B;
+		inv_mass_A.value = 1 / body_A.get()->getMass().value;
+		inv_mass_B.value = 1 / body_B.get()->getMass().value;
+
+		VelocityVec3 linear_velocity_A, linear_velocity_B;
+		linear_velocity_A.value = body_A.get()->getLinearVelocity().value;
+		linear_velocity_B.value = body_B.get()->getLinearVelocity().value;
+
+		AngularVelocityVec3 angular_velocity_A, angular_velocity_B;
+		angular_velocity_A.value = body_A.get()->getAngularVelocity().value;
+		angular_velocity_B.value = body_B.get()->getAngularVelocity().value;
+
+		float coefficient_of_restitution = std::min(body_A.get()->getRestitution(), body_B.get()->getRestitution());
+
+		/*  Calculating impulse  */
+		Impulse impulse;
+		impulse.value = calculateCollisionImpulse(inv_J_A, inv_J_B, normal, linear_velocity_A, linear_velocity_B,
+			r_A, r_B, inv_mass_A, inv_mass_B, angular_velocity_A, angular_velocity_B, coefficient_of_restitution).value;
+
+		std::cout << " Collision impulse " << impulse.value << std::endl;
+
+		/*  integrating impulse to both bodies  */
+		ImpulseVector3 impulse_normal;
+		impulse_normal.value = normal.value * impulse.value;
+
+		/*  Linear impulse integration  */
+		VelocityVec3 applied_linear_A, applied_linear_B;
+		applied_linear_A.value = linear_velocity_A.value + (impulse_normal.value / inv_mass_A.value);
+		body_A.get()->setLinearVelocity(applied_linear_A);
+
+		applied_linear_B.value = linear_velocity_B.value - (impulse_normal.value / inv_mass_B.value);
+		body_B.get()->setLinearVelocity(applied_linear_B);
+
+		/*  Angular impulse integration  */
+		AngularVelocityVec3 applied_angular_A, applied_angular_B;
+		applied_angular_A.value = angular_velocity_A.value + impulse.value * inv_J_A.value * glm::cross(r_A.value, normal.value);
+		body_A.get()->setAngularVelocity(applied_angular_A);
+
+		applied_angular_B.value = angular_velocity_B.value - impulse.value * inv_J_B.value * glm::cross(r_B.value, normal.value);
+		body_B.get()->setAngularVelocity(applied_angular_B);
 
 	}
 	this->collision_pair_list.clear();
@@ -90,9 +156,9 @@ PhysicsManager::~PhysicsManager() {
 	this->body_list.clear();
 }
 
-Impulse PhysicsManager::calculateCollisionImpulse(InertiaVector3 J1, InertiaVector3 J2,
+Impulse PhysicsManager::calculateCollisionImpulse(InertiaVector3 inv_J1, InertiaVector3 inv_J2,
 	DirectionalVec3 normal, VelocityVec3 V1, VelocityVec3 V2, DirectionalVec3 r1, DirectionalVec3 r2,
-	Mass m1, Mass m2, AngularVelocityVec3 w1, AngularVelocityVec3 w2, float Ee) 
+	Mass inv_m1, Mass inv_m2, AngularVelocityVec3 w1, AngularVelocityVec3 w2, float Ee) 
 {
 	/*   Calculating the Numerator   */
 	float coefficient = -(1 + Ee);
@@ -103,14 +169,14 @@ Impulse PhysicsManager::calculateCollisionImpulse(InertiaVector3 J1, InertiaVect
 	float numerator = coefficient * (normal_dot_velocities + angular_dot_distance_normal);
 
 	/*   Calculating the Denominator   */
-	float masses = m1.value + m2.value;
+	float masses = inv_m1.value + inv_m2.value;
 
 	glm::fvec3 normal_r1 = glm::cross(r1.value, normal.value);
-	glm::fvec3 J1_mult_rXn = normal_r1 * J1.value;
+	glm::fvec3 J1_mult_rXn = normal_r1 * inv_J1.value;
 	float J1_normal_distance = glm::dot(normal_r1, J1_mult_rXn);
 
 	glm::fvec3 normal_r2 = glm::cross(r2.value, normal.value);
-	glm::fvec3 J2_mult_rXn = normal_r2 * J2.value;
+	glm::fvec3 J2_mult_rXn = normal_r2 * inv_J2.value;
 	float J2_normal_distance = glm::dot(normal_r2, J2_mult_rXn);
 
 	float denominator = masses + (J1_normal_distance + J2_normal_distance);

@@ -26,6 +26,8 @@ public:
 	std::shared_ptr<q3Box> getBoxCollider();
 
 	InertiaVector3 getMomentOfInertia();
+	InertiaVector3 getInverseInertiaTensor();
+
 	Point3D getBodyCentreofMass();
 	void setBodyPosition(Point3D position);
 
@@ -35,10 +37,18 @@ public:
 	void setAngularVelocity(AngularVelocityVec3 angular_vel);
 	AngularVelocityVec3 getAngularVelocity();
 
+	void setMass(Mass mass_);
+	Mass getMass();
+
+	void setRestitution(float c_o_r);
+	float getRestitution();
+
+
 private:
 
 	std::shared_ptr<q3Box> collider_box = nullptr;
-	float mass;
+	Mass mass;
+	float coefficient_of_restitution = 1;
 
 	VelocityVec3 linear_velocity;
 	AngularVelocityVec3 angular_velocity;

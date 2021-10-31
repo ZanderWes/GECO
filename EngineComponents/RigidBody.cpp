@@ -80,6 +80,26 @@ AngularVelocityVec3 RigidBody::getAngularVelocity()
 	return this->angular_velocity;
 }
 
+void RigidBody::setMass(Mass mass_)
+{
+	this->mass.value = mass_.value;
+}
+
+Mass RigidBody::getMass()
+{
+	return this->mass;
+}
+
+void RigidBody::setRestitution(float c_o_r)
+{
+	this->coefficient_of_restitution = c_o_r;
+}
+
+float RigidBody::getRestitution()
+{
+	return this->coefficient_of_restitution;
+}
+
 InertiaVector3 RigidBody::getMomentOfInertia()
 {
 	auto extents = this->collider_box->e;
@@ -88,11 +108,21 @@ InertiaVector3 RigidBody::getMomentOfInertia()
 	auto a = extents[1];
 	auto l = extents[2];
 
-	float Ixx = (1.0 / 12.0) * this->mass * (a * a + l * l);
-	float Iyy = (1.0 / 12.0) * this->mass * (b * b + l * l);
-	float Izz = (1.0 / 12.0) * this->mass * (a * a + b * b);
+	float Ixx = (1.0 / 12.0) * this->mass.value * (a * a + l * l);
+	float Iyy = (1.0 / 12.0) * this->mass.value * (b * b + l * l);
+	float Izz = (1.0 / 12.0) * this->mass.value * (a * a + b * b);
 
 	return InertiaVector3(Ixx, Iyy, Izz);
+}
+
+InertiaVector3 RigidBody::getInverseInertiaTensor()
+{
+	InertiaVector3 inverse_tensor;
+	inverse_tensor.value = getMomentOfInertia().value;
+
+	inverse_tensor.value = glm::fvec3{1,1,1} / inverse_tensor.value;
+	
+	return inverse_tensor;
 }
 
 RigidBody::~RigidBody()

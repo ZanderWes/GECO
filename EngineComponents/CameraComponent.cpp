@@ -5,7 +5,7 @@ CameraComponent::CameraComponent()
 {
 	position_ = { 0,0,0 };
 	look_at_ = forward_ = { 0,0,1 };
-	up_ = { 0,-1,0 };
+	up_ = { 0,1,0 };
 	//perspective_ = { 90, 600 / 600, 0.01, 10000.0 };
 	FOV_ = 60.0f;
 	aspect_ = 1.0f;
