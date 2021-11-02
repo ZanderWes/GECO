@@ -36,7 +36,9 @@ RigidBody::RigidBody()
 
 void RigidBody::Render(q3Renderer* render) const
 {
-	this->collider_box->Render(this->collider_box->local, true, render);
+	q3Transform transform;
+	q3Identity(transform);
+	this->collider_box->Render(transform, true, render);
 }
 
 std::shared_ptr<q3Box> RigidBody::getBoxCollider()
