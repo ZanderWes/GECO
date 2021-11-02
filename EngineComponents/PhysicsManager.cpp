@@ -140,6 +140,12 @@ void PhysicsManager::solve()
 		applied_angular_B.value = angular_velocity_B.value - impulse.value * inv_J_B.value * glm::cross(r_B.value, normal.value);
 		body_B.get()->setAngularVelocity(applied_angular_B);
 
+		/*glm::fvec3 rotation_vec = glm::cross(r_A.value, normal.value);
+		body_A.get()->setRotationVector(rotation_vec);
+
+		rotation_vec = glm::cross(r_B.value, normal.value);
+		body_B.get()->setRotationVector(rotation_vec);*/
+
 	}
 	this->collision_pair_list.clear();
 }

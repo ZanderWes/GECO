@@ -38,7 +38,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 1
-#define ROTATION_SPEED 0.18
+#define ROTATION_SPEED 0.2
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 1
@@ -90,9 +90,10 @@ void setupPhysics() {
     //body1.get()->setMass(Mass(30));
 
     std::shared_ptr<RigidBody> body2 = std::make_shared<RigidBody>();
-    body2.get()->setBodyPosition(Point3D(3, -0, 0));
+    body2.get()->setBodyPosition(Point3D(3, -0.0, 0.0));
     body2.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.05, 0.05);
-    body2.get()->setLinearVelocity(VelocityVec3(-0.3,0,0));
+    //body2.get()->setLinearVelocity(VelocityVec3(-0.3,0,0));
+    body2.get()->setAngularVelocity(AngularVelocityVec3(0, 0, 1));
 
     std::shared_ptr<RigidBody> body3 = std::make_shared<RigidBody>();
     body3.get()->setBodyPosition(Point3D(-0.2, 0, 0));
@@ -163,7 +164,7 @@ void Initialize()
 
     setupPhysics();
 
-    player.camera_controller.setCameraPosition(glm::fvec3{0,0,-5});
+    player.camera_controller.setCameraPosition(glm::fvec3{0,-2,-5});
 }
 
 void keyboard(unsigned char key, int x, int y)

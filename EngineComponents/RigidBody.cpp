@@ -13,16 +13,14 @@ RigidBody::RigidBody()
 {
 	this->linear_velocity.value = { 0,0,0 };
 	this->angular_velocity.value = { 0,0,0 };
+	this->impulse_rotation_vector = glm::normalize(glm::fvec3(1));
+	this->updated_position.value = Point3D(0).value;
 
 	q3AABB aabb;
 	std::shared_ptr<q3Box> box = std::make_shared<q3Box>();
 	q3Transform transform;
-	//transform.position = q3Vec3(0, 0, 0);
-	//transform.rotation = q3Mat3(1, 1, 1, 1, 1, 1, 1, 1, 1);
-
+	
 	q3Identity(transform);
-
-	//transform.position += q3Vec3(0, 0, 50);
 
 	box->local = transform;
 	box->e = q3Vec3(1, 1, 1);
@@ -100,6 +98,11 @@ float RigidBody::getRestitution()
 	return this->coefficient_of_restitution;
 }
 
+void RigidBody::setRotationVector(glm::fvec3 rotate_around)
+{
+	this->impulse_rotation_vector = glm::normalize(rotate_around);
+}
+
 InertiaVector3 RigidBody::getMomentOfInertia()
 {
 	auto extents = this->collider_box->e;
@@ -137,23 +140,39 @@ void RigidBody::Update(float delta_t)
 
 void RigidBody::applyMovement(float delta_t)
 {
-	glm::fvec3 temp = this->linear_velocity.value * delta_t;
-
-	this->collider_box.get()->local.position += q3Vec3(temp[0], temp[1], temp[2]);
-
-	auto rot_matrix = this->collider_box.get()->local.rotation;
-	glm::mat3 rotation_mat = {rot_matrix[0][0], rot_matrix[0][1], rot_matrix[0][2],
-								rot_matrix[1][0], rot_matrix[1][1], rot_matrix[1][2], 
-								rot_matrix[2][0], rot_matrix[2][1], rot_matrix[2][2]};
-	glm::mat4 rotation_matrix = rotation_mat;
-
+	auto pre_rotation = this->collider_box.get()->local.rotation;
+	
+	glm::mat4 rotation_mat = glm::mat3(pre_rotation[0][0], pre_rotation[0][1], pre_rotation[0][2],
+								pre_rotation[1][0], pre_rotation[1][1], pre_rotation[1][2], 
+								pre_rotation[2][0], pre_rotation[2][1], pre_rotation[2][2]);
+	
 	glm::fvec3 angular_delta_t = this->angular_velocity.value * delta_t;
 
-	rotation_matrix = glm::rotate(rotation_matrix, angular_delta_t[0], glm::fvec3(1, 0, 0));
-	rotation_matrix = glm::rotate(rotation_matrix, angular_delta_t[1], glm::fvec3(0, 1, 0));
-	rotation_matrix = glm::rotate(rotation_matrix, angular_delta_t[2], glm::fvec3(0, 0, 1));
+	glm::mat4 rotation_matrix = rotation_mat; 
+
+	if(glm::length(angular_delta_t) > 0)
+		rotation_matrix = glm::rotate(rotation_matrix, glm::length(angular_delta_t), glm::normalize(this->angular_velocity.value));
+
+	
+	//rotation_matrix = glm::rotate(rotation_mat, angular_delta_t[0], glm::fvec3(1, 0, 0));
+	//rotation_matrix = glm::rotate(rotation_mat, angular_delta_t[1], glm::fvec3(0, 1, 0));
+	//rotation_matrix = glm::rotate(rotation_mat, angular_delta_t[2], glm::fvec3(0, 0, 1));
 
 	this->collider_box.get()->local.rotation = q3Mat3(rotation_matrix[0][0], rotation_matrix[0][1], rotation_matrix[0][2],
 													rotation_matrix[1][0], rotation_matrix[1][1], rotation_matrix[1][2], 
 													rotation_matrix[2][0], rotation_matrix[2][1], rotation_matrix[2][2]);
+
+	glm::fvec3 temp = this->linear_velocity.value * delta_t;
+
+
+	this->collider_box.get()->local.position += q3Vec3(temp[0], temp[1], temp[2]);
+
+	this->collider_box.get()->local.position = this->collider_box.get()->local.position -
+		q3Mul(this->collider_box.get()->local.rotation, q3Vec3(0, 0, 0));
+
+	q3AABB aabb;
+	q3Transform tx = this->collider_box.get()->local;
+
+	this->collider_box.get()->ComputeAABB(tx, &aabb);
+
 }

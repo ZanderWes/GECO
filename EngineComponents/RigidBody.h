@@ -7,6 +7,7 @@
 #include "qu3e/src/math/q3Transform.h"
 #include "q3Renderer.h"
 #include "gtc/matrix_transform.hpp"
+#include "gtx/quaternion.hpp"
 
 class q3Render;
 struct q3Box;
@@ -44,6 +45,7 @@ public:
 	void setRestitution(float c_o_r);
 	float getRestitution();
 
+	void setRotationVector(glm::fvec3 rotate_around);
 
 private:
 
@@ -53,6 +55,11 @@ private:
 
 	VelocityVec3 linear_velocity;
 	AngularVelocityVec3 angular_velocity;
+
+	Point3D updated_position;
+
+	glm::fvec3 impulse_rotation_vector;
+	//q3Quaternion body_quaternion_rotation;
 
 	void applyMovement(float delta_t);
 };
