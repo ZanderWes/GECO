@@ -40,12 +40,14 @@ void LoadPhysicsObjects::LoadPhysics(PhysicsManager &physics_factory, const char
         auto linear_velocity = physics_body.value()["Linear Velocity"].get<std::vector<float>>();
         auto angular_velocity = physics_body.value()["Angular Velocity"].get<std::vector<float>>();
         auto mass = physics_body.value()["Mass"].get<float>();
+        auto coefficient_restitution = physics_body.value()["Coefficient of Restitution"].get<float>();
 
         p_body.get()->setBodyPosition(Point3D(position[0], position[1], position[2]));
         p_body.get()->getBoxCollider().get()->e = q3Vec3(cube_size[0], cube_size[1], cube_size[2]);
         p_body.get()->setLinearVelocity(VelocityVec3(linear_velocity[0], linear_velocity[1], linear_velocity[2]));
         p_body.get()->setMass(Mass(mass));
         p_body.get()->setAngularVelocity(AngularVelocityVec3(angular_velocity[0], angular_velocity[1], angular_velocity[2]));
+        p_body.get()->setCoefficientRestitution(coefficient_restitution);
 
         physics_factory.AddRigidBody(p_body);
     }

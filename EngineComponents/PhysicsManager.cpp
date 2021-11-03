@@ -85,8 +85,9 @@ void PhysicsManager::solve()
 		}
 
 		contact_position.value /= collision_pair.get()->contactCount;
-		//auto temp_pos = collision_pair.get()->contacts[0].position;
-		//Point3D contact_position(temp_pos[0], temp_pos[1], temp_pos[2]);
+
+		std::cout << "Collision Point: "<< contact_position.value[0] << 
+			contact_position.value[1] << contact_position.value[2] << "\n" << std::endl;
 
 		DirectionalVec3 r_A, r_B;
 		r_A.value = contact_position.value - body_A.get()->getBodyCentreofMass().value;
@@ -118,7 +119,7 @@ void PhysicsManager::solve()
 		impulse.value = calculateCollisionImpulse(inv_J_A, inv_J_B, normal, linear_velocity_A, linear_velocity_B,
 			r_A, r_B, inv_mass_A, inv_mass_B, angular_velocity_A, angular_velocity_B, coefficient_of_restitution).value;
 
-		std::cout << " Collision impulse " << impulse.value << std::endl;
+		//std::cout << " Collision impulse " << impulse.value << std::endl;
 
 		/*  integrating impulse to both bodies  */
 		ImpulseVector3 impulse_normal;
@@ -126,10 +127,10 @@ void PhysicsManager::solve()
 
 		/*  Linear impulse integration  */
 		VelocityVec3 applied_linear_A, applied_linear_B;
-		applied_linear_A.value = linear_velocity_A.value + (impulse_normal.value / inv_mass_A.value);
+		applied_linear_A.value = linear_velocity_A.value + (impulse_normal.value / body_A.get()->getMass().value);
 		body_A.get()->setLinearVelocity(applied_linear_A);
 
-		applied_linear_B.value = linear_velocity_B.value - (impulse_normal.value / inv_mass_B.value);
+		applied_linear_B.value = linear_velocity_B.value - (impulse_normal.value / body_B.get()->getMass().value);
 		body_B.get()->setLinearVelocity(applied_linear_B);
 
 		/*  Angular impulse integration  */
@@ -140,11 +141,22 @@ void PhysicsManager::solve()
 		applied_angular_B.value = angular_velocity_B.value - impulse.value * inv_J_B.value * glm::cross(r_B.value, normal.value);
 		body_B.get()->setAngularVelocity(applied_angular_B);
 
-		/*glm::fvec3 rotation_vec = glm::cross(r_A.value, normal.value);
-		body_A.get()->setRotationVector(rotation_vec);
 
-		rotation_vec = glm::cross(r_B.value, normal.value);
-		body_B.get()->setRotationVector(rotation_vec);*/
+		std::cout << "Linear Velocity A: " << applied_linear_A.value[0] <<
+			applied_linear_A.value[0] << applied_linear_A.value[0] << std::endl;
+
+		std::cout << "Angular Velocity A: " << applied_angular_A.value[0] <<
+			applied_angular_A.value[0] << applied_angular_A.value[0] << std::endl;
+
+		std::cout << "distance A to collision point: " << glm::length(r_A.value) << "\n" << std::endl;
+
+		std::cout << "Linear Velocity B: " << applied_linear_B.value[0] <<
+			applied_linear_B.value[0] << applied_linear_B.value[0] << std::endl;
+
+		std::cout << "Angular Velocity B: " << applied_linear_B.value[0] <<
+			applied_linear_B.value[0] << applied_linear_B.value[0] << std::endl;
+
+		std::cout << "distance B to collision point: " << glm::length(r_B.value) << "\n\n" << std::endl;
 
 	}
 	this->collision_pair_list.clear();

@@ -47,6 +47,9 @@ public:
 
 	void setRotationVector(glm::fvec3 rotate_around);
 
+	void setCoefficientRestitution(float c_o_r);
+	float getCoefficientRestitution();
+
 private:
 
 	std::shared_ptr<q3Box> collider_box = nullptr;

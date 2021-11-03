@@ -105,6 +105,16 @@ void RigidBody::setRotationVector(glm::fvec3 rotate_around)
 	this->impulse_rotation_vector = glm::normalize(rotate_around);
 }
 
+void RigidBody::setCoefficientRestitution(float c_o_r)
+{
+	this->coefficient_of_restitution = c_o_r;
+}
+
+float RigidBody::getCoefficientRestitution()
+{
+	return this->coefficient_of_restitution;
+}
+
 InertiaVector3 RigidBody::getMomentOfInertia()
 {
 	auto extents = this->collider_box->e;
