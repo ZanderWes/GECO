@@ -16,6 +16,7 @@
 //#include <q3.h>
 #include "q3Renderer.h"
 #include "PhysicsManager.h"
+#include "JsonLoader.h"
 
 //#include "BruteForce.h"
 // textures
@@ -38,7 +39,7 @@
 #define SCALE_Z 30
 
 #define MOVEMENT_SPEED 1
-#define ROTATION_SPEED 0.1
+#define ROTATION_SPEED 0.08
 #define MOVEMENT_SPEED_MODEL 1
 
 #define REFRESH_RATE_MS 1
@@ -83,26 +84,9 @@ void mouseMovePassive(int x, int y);
 void animate(long double deltaT);
 
 void setupPhysics() {
-    std::shared_ptr<RigidBody> body1 = std::make_shared<RigidBody>();
-    body1.get()->setBodyPosition(Point3D(0, 0, 0));
-    body1.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.30, 0.30);
-    //body1.get()->setLinearVelocity(VelocityVec3(0, 0, 0));
-    //body1.get()->setMass(Mass(30));
 
-    std::shared_ptr<RigidBody> body2 = std::make_shared<RigidBody>();
-    body2.get()->setBodyPosition(Point3D(3, -0.1, 0.1));
-    body2.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.05, 0.05);
-    body2.get()->setLinearVelocity(VelocityVec3(-0.3,0,0));
-    //body2.get()->setAngularVelocity(AngularVelocityVec3(1, 0, 1));
-
-    std::shared_ptr<RigidBody> body3 = std::make_shared<RigidBody>();
-    body3.get()->setBodyPosition(Point3D(-0.5, 0, 0));
-    body3.get()->getBoxCollider().get()->e = q3Vec3(0.05, 0.30, 0.30);
-
-
-    physics.AddRigidBody(body1);
-    physics.AddRigidBody(body2);
-    physics.AddRigidBody(body3);
+    LoadPhysicsObjects physics_init;
+    physics_init.LoadPhysics( physics, "PhysicsBodyData.json");
 }
 
 int main(int argc, char **argv)
@@ -331,7 +315,6 @@ void draw()
 
 void drawBox()
 {
-    //box1.Render(box1.local, true, &render_);
     physics.Render(&render_);
 }
 
