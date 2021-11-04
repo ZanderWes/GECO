@@ -1,9 +1,9 @@
 {
     "1":{
-        "Position": [0, 0, 0],
-        "Extents": [0.03, 0.30, 0.20],
-        "Mass": 2,
-        "Linear Velocity": [0, 0, 0],
+        "Position": [1, -0.2, -0.1],
+        "Extents": [0.05, 0.05, 0.05],
+        "Mass": 10,
+        "Linear Velocity": [-0.2, 0, 0],
         "Angular Velocity": [0, 0, 0],
         "Coefficient of Restitution": 0.6
     },
@@ -16,10 +16,10 @@
         "Coefficient of Restitution": 0.6
     },
     "3":{
-        "Position": [1, -0.2, -0.1],
-        "Extents": [0.05, 0.05, 0.05],
-        "Mass": 0.1,
-        "Linear Velocity": [-0.2, 0, 0],
+        "Position": [0, 0, 0],
+        "Extents": [0.03, 0.30, 0.20],
+        "Mass": 2,
+        "Linear Velocity": [0, 0, 0],
         "Angular Velocity": [0, 0, 0],
         "Coefficient of Restitution": 0.6
     }

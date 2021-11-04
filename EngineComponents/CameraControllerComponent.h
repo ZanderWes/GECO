@@ -91,9 +91,6 @@ public:
 
 private:
 	
-	/*glm::fvec3 world_X;
-	glm::fvec3 world_Y;
-	glm::fvec3 world_Z;*/
 
 };
 

@@ -12,6 +12,9 @@
 #include "JsonLoader.h"
 
 
+#define PHYSICS_DATA_FILE "PhysicsBodyData.json"
+#define PHYSICS_JUST_FOR_FUN "JustForFun.json"
+
 #define MOVEMENT_SPEED 1
 #define ROTATION_SPEED 0.1
 #define REFRESH_RATE_MS 1
@@ -44,7 +47,7 @@ void mouseMovePassive(int x, int y);
 void setupPhysics() {
 
     LoadPhysicsObjects physics_init;
-    physics_init.LoadPhysics( physics, "PhysicsBodyData.json");
+    physics_init.LoadPhysics( physics, PHYSICS_JUST_FOR_FUN);
 }
 
 int main(int argc, char **argv)
@@ -54,7 +57,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glEnable(GL_TEXTURE_2D);
     glutInitWindowPosition(100, 100);
-    glutInitWindowSize(800, 600);
+    glutInitWindowSize(1000, 800);
     glutCreateWindow("Physics Demo 398");
 
     Initialize();
