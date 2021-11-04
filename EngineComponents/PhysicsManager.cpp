@@ -36,7 +36,6 @@ void PhysicsManager::AddRigidBody(std::shared_ptr<RigidBody> body)
 	this->body_list.push_back(body);
 }
 
-
 void PhysicsManager::checkCollision()
 {
 	for (int i = 0; i < this->body_list.size() - 1; i++)

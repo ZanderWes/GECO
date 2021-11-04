@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glEnable(GL_TEXTURE_2D);
     glutInitWindowPosition(100, 100);
-    glutInitWindowSize(1000, 800);
+    glutInitWindowSize(1000, 700);
     glutCreateWindow("Physics Demo 398");
 
     Initialize();
