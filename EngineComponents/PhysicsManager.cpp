@@ -2,13 +2,14 @@
 
 #include "PhysicsManager.h"
 #include <iostream>
-
+#include <algorithm>
 
 #include "qu3e/src/dynamics/q3Contact.h"
 #include "qu3e/src/math/q3Mat3.h"
 #include "qu3e/src/math/q3Transform.h"
 #include "qu3e/src/collision/q3Collide.h"
 #include "qu3e/src/collision/q3Collide.cpp"
+
 
 void PhysicsManager::Render(q3Renderer* render)
 {
@@ -76,12 +77,15 @@ void PhysicsManager::solve()
 		q3Box* box_B = collision_pair.get()->B;
 		
 		Point3D contact_position(0);
+		float contact_depth = 0;
+
 		for (int i = 0; i < collision_pair.get()->contactCount; i++)
 		{
 			auto temp_pos = collision_pair.get()->contacts[i].position;
 			Point3D contact_(temp_pos[0], temp_pos[1], temp_pos[2]);
 
 			contact_position.value += contact_.value;
+			contact_depth = std::max(glm::length(collision_pair.get()->contacts[i].penetration), contact_depth);
 		}
 
 		contact_position.value /= collision_pair.get()->contactCount;
@@ -119,9 +123,7 @@ void PhysicsManager::solve()
 		impulse.value = calculateCollisionImpulse(inv_J_A, inv_J_B, normal, linear_velocity_A, linear_velocity_B,
 			r_A, r_B, inv_mass_A, inv_mass_B, angular_velocity_A, angular_velocity_B, coefficient_of_restitution).value;
 
-		//std::cout << " Collision impulse " << impulse.value << std::endl;
-
-		/*  integrating impulse to both bodies  */
+	/*  integrating impulse to both bodies  */
 		ImpulseVector3 impulse_normal;
 		impulse_normal.value = normal.value * impulse.value;
 
@@ -141,6 +143,15 @@ void PhysicsManager::solve()
 		applied_angular_B.value = angular_velocity_B.value - impulse.value * inv_J_B.value * glm::cross(r_B.value, normal.value);
 		body_B.get()->setAngularVelocity(applied_angular_B);
 
+		/*  depenetrate objects  */
+		float halved_contact_depth = contact_depth / 2;
+
+		Point3D push_back_A, push_back_B;
+		push_back_A.value = body_A.get()->getBodyCentreofMass().value + (-normal.value * halved_contact_depth);
+		body_A.get()->setBodyPosition(push_back_A);
+
+		push_back_B.value = body_B.get()->getBodyCentreofMass().value + (normal.value * halved_contact_depth);
+		body_B.get()->setBodyPosition(push_back_B);
 
 		std::cout << "Linear Velocity A: " << applied_linear_A.value[0] <<
 			applied_linear_A.value[0] << applied_linear_A.value[0] << std::endl;

@@ -1,5 +1,4 @@
-// Lab4_task.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+
 
 #include <iostream>
 #include <vector>
@@ -91,7 +90,7 @@ void Initialize()
 
     setupPhysics();
 
-    player.camera_controller.setCameraPosition(glm::fvec3{0,-2,-5});
+    player.camera_controller.setCameraPosition(glm::fvec3{0,-1,-2});
 }
 
 void keyboard(unsigned char key, int x, int y)
