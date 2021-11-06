@@ -3,9 +3,7 @@
 #include "qu3e/src/collision/q3Box.cpp"
 #include "qu3e/src/broadphase/q3BroadPhase.h"
 #include "qu3e/src/dynamics/q3Contact.h"
-//#include "qu3e/src/"
 #include "qu3e/src/math/q3Vec3.cpp"
-//#include "qu3e/src/collision/q3Box.h"
 
 
 
@@ -126,6 +124,8 @@ InertiaVector3 RigidBody::getMomentOfInertia()
 	float Ixx = (1.0 / 12.0) * this->mass.value * (a * a + l * l);
 	float Iyy = (1.0 / 12.0) * this->mass.value * (b * b + l * l);
 	float Izz = (1.0 / 12.0) * this->mass.value * (a * a + b * b);
+
+	std::cout << "Ixx: " << Ixx << " Iyy: " << Iyy << " Izz: " << Izz << std::endl;
 
 	return InertiaVector3(Ixx, Iyy, Izz);
 }

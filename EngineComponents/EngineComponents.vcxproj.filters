@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Collision">
       <UniqueIdentifier>{0da30c7c-36d7-4222-8280-0b2cfe8270a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Testing">
+      <UniqueIdentifier>{6a22b985-9cc5-4abd-b32c-2fcd95af127f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponents.cpp">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="JsonLoader.h">
       <Filter>Header Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="TestClass.h">
+      <Filter>Header Files\Testing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

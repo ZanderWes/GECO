@@ -11,6 +11,8 @@
 #include "PhysicsManager.h"
 #include "JsonLoader.h"
 
+#include "TestClass.h"
+
 
 #define PHYSICS_DATA_FILE "PhysicsBodyData.json"
 #define PHYSICS_JUST_FOR_FUN "JustForFun.json"
@@ -47,7 +49,9 @@ void mouseMovePassive(int x, int y);
 void setupPhysics() {
 
     LoadPhysicsObjects physics_init;
-    physics_init.LoadPhysics( physics, PHYSICS_JUST_FOR_FUN);
+    physics_init.LoadPhysics( physics, PHYSICS_DATA_FILE);
+    
+    //TestClass::TestImpulseEquation();
 }
 
 int main(int argc, char **argv)

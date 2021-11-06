@@ -21,6 +21,10 @@ public:
 
 	~PhysicsManager();
 
+	static Impulse calculateCollisionImpulse(InertiaVector3 J1, InertiaVector3 J2, DirectionalVec3 normal,
+		VelocityVec3 V1, VelocityVec3 V2, DirectionalVec3 r1, DirectionalVec3 r2,
+		Mass inv_m1, Mass inv_m2, AngularVelocityVec3 w1, AngularVelocityVec3 w2, float Ee);
+
 private:
 	struct CollisionPair
 	{
@@ -34,10 +38,6 @@ private:
 	void solve();
 
 	std::vector<std::shared_ptr<RigidBody>> body_list;
-
-	static Impulse calculateCollisionImpulse(InertiaVector3 J1, InertiaVector3 J2,	DirectionalVec3 normal, 
-		VelocityVec3 V1, VelocityVec3 V2, DirectionalVec3 r1, DirectionalVec3 r2,
-		Mass inv_m1, Mass inv_m2, AngularVelocityVec3 w1, AngularVelocityVec3 w2, float Ee);
 
 	std::vector<std::shared_ptr<q3Manifold>> collision_data_list;
 	std::vector<CollisionPair> collision_pair_list;

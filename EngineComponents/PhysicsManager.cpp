@@ -90,17 +90,34 @@ void PhysicsManager::solve()
 		contact_position.value /= collision_pair.get()->contactCount;
 
 		std::cout << "Collision Point: "<< contact_position.value[0] << 
-			contact_position.value[1] << contact_position.value[2] << "\n" << std::endl;
+			contact_position.value[1] << contact_position.value[2] << std::endl;
+
+		Point3D center_of_mass_A, center_of_mass_B;
+		center_of_mass_A.value = body_A.get()->getBodyCentreofMass().value;
+		center_of_mass_B.value = body_B.get()->getBodyCentreofMass().value;
 
 		DirectionalVec3 r_A, r_B;
-		r_A.value = contact_position.value - body_A.get()->getBodyCentreofMass().value;
-		r_B.value = contact_position.value - body_B.get()->getBodyCentreofMass().value;
+		r_A.value = contact_position.value - center_of_mass_A.value;
+		r_B.value = contact_position.value - center_of_mass_B.value;
 
 		auto temp_normal = collision_pair.get()->normal;
 		DirectionalVec3 normal(temp_normal[0], temp_normal[1], temp_normal[2]);
 
+		std::cout << "Contact Normal: " << normal.value[0] << ", " << normal.value[2] << ", " << normal.value[2] << "\n" << std::endl;
+
+		std::cout << "Body A center of mass: " << center_of_mass_A.value[0] << ", " << 
+			center_of_mass_A.value[1] << ", " << center_of_mass_A.value[2] << std::endl;
+		std::cout << "Body B center of mass: " << center_of_mass_B.value[0] << ", " <<
+			center_of_mass_B.value[1] << ", " << center_of_mass_B.value[2] << "\n" << std::endl;
+
+		std::cout << "r1 Value: " << r_A.value[0] << ", " << r_A.value[1] << ", " << r_A.value[2] << std::endl;
+		std::cout << "r2 value: " << r_B.value[0] << ", " << r_B.value[1] << ", " << r_B.value[2] << "\n" << std::endl;
+
 		InertiaVector3 inv_J_A, inv_J_B;
+
+		std::cout << "Inertia tensor A: ";
 		inv_J_A.value = body_A.get()->getInverseInertiaTensor().value;
+		std::cout << "Inertia tensor B: ";
 		inv_J_B.value = body_B.get()->getInverseInertiaTensor().value;
 
 		Mass inv_mass_A, inv_mass_B;
@@ -111,16 +128,30 @@ void PhysicsManager::solve()
 		linear_velocity_A.value = body_A.get()->getLinearVelocity().value;
 		linear_velocity_B.value = body_B.get()->getLinearVelocity().value;
 
+		std::cout << "\nLinear Velocity A: " << linear_velocity_A.value[0] << ", " <<
+			linear_velocity_A.value[1] << ", " << linear_velocity_A.value[2] << std::endl;
+		std::cout << "Linear Velocity B: " << linear_velocity_B.value[0] << ", " <<
+			linear_velocity_B.value[1] << ", " << linear_velocity_B.value[2] << "\n" << std::endl;
+
 		AngularVelocityVec3 angular_velocity_A, angular_velocity_B;
 		angular_velocity_A.value = body_A.get()->getAngularVelocity().value;
 		angular_velocity_B.value = body_B.get()->getAngularVelocity().value;
 
+		std::cout << "Angular Velocity A: " << angular_velocity_A.value[0] << ", " <<
+			angular_velocity_A.value[1] << ", " << angular_velocity_A.value[2] << std::endl;
+		std::cout << "Angular Velocity B: " << angular_velocity_B.value[0] << ", " <<
+			angular_velocity_B.value[1] << ", " << angular_velocity_B.value[2] << "\n" << std::endl;
+
 		float coefficient_of_restitution = std::min(body_A.get()->getRestitution(), body_B.get()->getRestitution());
+
+		std::cout << "Coefficient of restitution: " << coefficient_of_restitution << std::endl;
 
 		/*  Calculating impulse  */
 		Impulse impulse;
 		impulse.value = calculateCollisionImpulse(inv_J_A, inv_J_B, normal, linear_velocity_A, linear_velocity_B,
 			r_A, r_B, inv_mass_A, inv_mass_B, angular_velocity_A, angular_velocity_B, coefficient_of_restitution).value;
+
+		std::cout << "Collision Impulse value: " << impulse.value << "\n" << std::endl;
 
 	/*  integrating impulse to both bodies  */
 		ImpulseVector3 impulse_normal;
@@ -134,6 +165,12 @@ void PhysicsManager::solve()
 		applied_linear_B.value = linear_velocity_B.value - (impulse_normal.value / body_B.get()->getMass().value);
 		body_B.get()->setLinearVelocity(applied_linear_B);
 
+		std::cout << "new linear velocity A: " << applied_linear_A.value[0] << ", "
+			<< applied_linear_A.value[1] << ", " << applied_linear_A.value[2] << std::endl;
+
+		std::cout << "new linear velocity B: " << applied_linear_B.value[0] << ", "
+			<< applied_linear_B.value[1] << ", " << applied_linear_B.value[2] << std::endl;
+
 		/*  Angular impulse integration  */
 		AngularVelocityVec3 applied_angular_A, applied_angular_B;
 		applied_angular_A.value = angular_velocity_A.value + impulse.value * inv_J_A.value * glm::cross(r_A.value, normal.value);
@@ -141,6 +178,12 @@ void PhysicsManager::solve()
 
 		applied_angular_B.value = angular_velocity_B.value - impulse.value * inv_J_B.value * glm::cross(r_B.value, normal.value);
 		body_B.get()->setAngularVelocity(applied_angular_B);
+
+		std::cout << "new angular velocity A: " << applied_angular_A.value[0] << ", "
+			<< applied_angular_A.value[1] << ", " << applied_angular_A.value[2] << std::endl;
+
+		std::cout << "new angular velocity B: " << applied_angular_B.value[0] << ", "
+			<< applied_angular_B.value[1] << ", " << applied_angular_B.value[2] << "\n\n\n" << std::endl;
 
 		/*  depenetrate objects  */
 		float halved_contact_depth = contact_depth / 2;
@@ -152,21 +195,17 @@ void PhysicsManager::solve()
 		push_back_B.value = body_B.get()->getBodyCentreofMass().value + (normal.value * halved_contact_depth);
 		body_B.get()->setBodyPosition(push_back_B);
 
-		std::cout << "Linear Velocity A: " << applied_linear_A.value[0] <<
-			applied_linear_A.value[0] << applied_linear_A.value[0] << std::endl;
+		
 
-		std::cout << "Angular Velocity A: " << applied_angular_A.value[0] <<
-			applied_angular_A.value[0] << applied_angular_A.value[0] << std::endl;
+		
 
-		std::cout << "distance A to collision point: " << glm::length(r_A.value) << "\n" << std::endl;
+		
 
-		std::cout << "Linear Velocity B: " << applied_linear_B.value[0] <<
-			applied_linear_B.value[0] << applied_linear_B.value[0] << std::endl;
 
-		std::cout << "Angular Velocity B: " << applied_linear_B.value[0] <<
-			applied_linear_B.value[0] << applied_linear_B.value[0] << std::endl;
+		
 
-		std::cout << "distance B to collision point: " << glm::length(r_B.value) << "\n\n" << std::endl;
+		
+
 
 	}
 	this->collision_pair_list.clear();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 
 #include "Def_Math_Types_398.h"
 #include "qu3e/src/math/q3Math.h"
