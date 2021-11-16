@@ -1,5 +1,3 @@
-// Lab4_task.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <vector>
@@ -11,14 +9,10 @@
 #include "Player.h"
 #include "ModelMD.h"
 
-//#include <coldet.h>
-//#include <cdmath3d.h>
-//#include <q3.h>
 #include "q3Renderer.h"
 #include "PhysicsManager.h"
 #include "JsonLoader.h"
 
-//#include "BruteForce.h"
 // textures
 #define HEIGHTFIELD_MAP "image/height128.raw"
 #define GRASS_TEXTURE "image/grass02.png"
@@ -44,8 +38,6 @@
 
 #define REFRESH_RATE_MS 1
 
-
-
 Player player;
 
 glm::fvec2 oldmouse{ 0,0 };
@@ -55,14 +47,13 @@ Fractal Fr;
 
 ModelMD modeldata(SOLDIER_MODEL);
 ModelMD* model_data_ptr = &modeldata;
-Md2Object model;//(model_data_ptr);
+Md2Object model;
 
 int frame_count = 0;
 
 glm::dvec3 move = { 0,0,0 };
 glm::dvec3 turn = { 0,0,0 };
 glm::dvec3 model_move = { 0,0,0 };
-
 
 q3Renderer render_;
 
@@ -91,7 +82,6 @@ void setupPhysics() {
 
 int main(int argc, char **argv)
 {
-
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glEnable(GL_TEXTURE_2D);
@@ -108,7 +98,6 @@ int main(int argc, char **argv)
     glutPassiveMotionFunc(mouseMovePassive);
 
     glutTimerFunc(REFRESH_RATE_MS, Update, REFRESH_RATE_MS);
-   // Previus_Time = glutGet(GLUT_ELAPSED_TIME);
 
     glutMainLoop();
 }
@@ -132,8 +121,6 @@ void Initialize()
     glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
     GLfloat light_pos[] = { 10, 10, -10, 1 };
     glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-
-    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
     bF.loadHeightfield(HEIGHTFIELD_MAP, 128);
     bF.loadHeightfieldTexture(GRASS_TEXTURE, 128);
@@ -223,12 +210,10 @@ void keyboard(unsigned char key, int x, int y)
     default:
         break;
     }
-    //glutPostRedisplay();
 }
 
 void keyboardSpecial(int key, int x, int y)
-{
-    
+{  
     switch (key)
     {
     case GLUT_KEY_UP:
@@ -255,7 +240,6 @@ void keyboardSpecial(int key, int x, int y)
     default:
         break;
     }
-    //glutPostRedisplay();
 }
 
 void mouseMovePassive(int x, int y)
@@ -266,8 +250,6 @@ void mouseMovePassive(int x, int y)
         turn += glm::fvec3({ deltax * ROTATION_SPEED * Delta_Time, deltay * ROTATION_SPEED * Delta_Time, 0 });
 
     oldmouse = { x, y };
-
-   
 }
 
 void mouseButton(int key, int state, int x, int y)
@@ -331,21 +313,11 @@ void Update(int i)
     Delta_Time = (current_time - Previus_Time);
     Previus_Time = current_time;
 
-    //physics.Step(Delta_Time);
+    physics.Step(Delta_Time);
 
     animate(Delta_Time);
 
     glutPostRedisplay();
-
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
