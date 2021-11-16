@@ -309,8 +309,8 @@ void draw()
 {
     drawBox();
 
-    //bF.render();
-    //model.drawObjectFrame(frame_count);
+    bF.render();
+    model.drawObjectFrame(frame_count);
 }
 
 void drawBox()
@@ -331,7 +331,7 @@ void Update(int i)
     Delta_Time = (current_time - Previus_Time);
     Previus_Time = current_time;
 
-    physics.Step(Delta_Time);
+    //physics.Step(Delta_Time);
 
     animate(Delta_Time);
 

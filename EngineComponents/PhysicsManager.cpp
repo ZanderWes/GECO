@@ -76,21 +76,26 @@ void PhysicsManager::solve()
 		q3Box* box_B = collision_pair.get()->B;
 		
 		Point3D contact_position(0);
+		float contact_depth = 0;
+
 		for (int i = 0; i < collision_pair.get()->contactCount; i++)
 		{
 			auto temp_pos = collision_pair.get()->contacts[i].position;
 			Point3D contact_(temp_pos[0], temp_pos[1], temp_pos[2]);
 
 			contact_position.value += contact_.value;
+			contact_depth = std::max(glm::length(collision_pair.get()->contacts[i].penetration), contact_depth);
 		}
 
 		contact_position.value /= collision_pair.get()->contactCount;
-		//auto temp_pos = collision_pair.get()->contacts[0].position;
-		//Point3D contact_position(temp_pos[0], temp_pos[1], temp_pos[2]);
+
+		Point3D body_center_of_mass_A, body_center_of_mass_B;
+		body_center_of_mass_A.value = body_A.get()->getBodyCentreofMass().value;
+		body_center_of_mass_B.value = body_B.get()->getBodyCentreofMass().value;
 
 		DirectionalVec3 r_A, r_B;
-		r_A.value = contact_position.value - body_A.get()->getBodyCentreofMass().value;
-		r_B.value = contact_position.value - body_B.get()->getBodyCentreofMass().value;
+		r_A.value = contact_position.value - body_center_of_mass_A.value;
+		r_B.value = contact_position.value - body_center_of_mass_B.value;
 
 		auto temp_normal = collision_pair.get()->normal;
 		DirectionalVec3 normal(temp_normal[0], temp_normal[1], temp_normal[2]);
@@ -140,11 +145,15 @@ void PhysicsManager::solve()
 		applied_angular_B.value = angular_velocity_B.value - impulse.value * inv_J_B.value * glm::cross(r_B.value, normal.value);
 		body_B.get()->setAngularVelocity(applied_angular_B);
 
-		/*glm::fvec3 rotation_vec = glm::cross(r_A.value, normal.value);
-		body_A.get()->setRotationVector(rotation_vec);
+		/*  applying depenetration  */
+		float halved_contact_depth = contact_depth / 2;
 
-		rotation_vec = glm::cross(r_B.value, normal.value);
-		body_B.get()->setRotationVector(rotation_vec);*/
+		Point3D push_back_A, push_back_B;
+		push_back_A.value = body_A.get()->getBodyCentreofMass().value + (-normal.value * halved_contact_depth);
+		body_A.get()->setBodyPosition(push_back_A);
+
+		push_back_B.value = body_B.get()->getBodyCentreofMass().value + (normal.value * halved_contact_depth);
+		body_B.get()->setBodyPosition(push_back_B);
 
 	}
 	this->collision_pair_list.clear();
@@ -152,11 +161,6 @@ void PhysicsManager::solve()
 
 PhysicsManager::~PhysicsManager() {
 
-	/*for (auto body : this->body_list)
-	{
-		delete body;
-		body = nullptr;
-	}*/
 	this->collision_data_list.clear();
 	this->collision_pair_list.clear();
 	this->body_list.clear();
