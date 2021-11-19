@@ -25,17 +25,41 @@
     <Filter Include="Source Files\Loaders">
       <UniqueIdentifier>{55a7cd5f-9db7-4ce0-bf42-05b42ad97ba0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Collision">
+    <Filter Include="Header Files\Dynamics">
+      <UniqueIdentifier>{5946b595-4ae8-4917-a198-d78aa420dc06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dynamics\Collision">
       <UniqueIdentifier>{b23fcf4d-2dfa-44c1-a4f8-3d1580b21dfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Collision">
+    <Filter Include="Header Files\Dynamics\Physics">
+      <UniqueIdentifier>{64aaea84-da08-4a46-8f23-8b8ef471c35a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dynamics">
+      <UniqueIdentifier>{77c5c1e4-cfe6-4008-a670-105ebf4ed2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dynamics\Physics">
+      <UniqueIdentifier>{3fcca62b-eaf7-4889-a487-9c1ae10313ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dynamics\Collision">
       <UniqueIdentifier>{0da30c7c-36d7-4222-8280-0b2cfe8270a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Maths">
+      <UniqueIdentifier>{f5921f55-6004-43a9-b765-89001fe6621e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{fb4f12f4-5a4f-45d1-be31-00c417681129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{7ae4b30b-df2f-4666-ad2c-dae872d3bc2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Main">
+      <UniqueIdentifier>{e8b74db9-1b25-4271-b9b1-899e31b2d834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Main">
+      <UniqueIdentifier>{3becc516-d70f-44f8-a489-1f1e533bb4bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineComponents.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,22 +82,28 @@
       <Filter>Source Files\CameraComponents</Filter>
     </ClCompile>
     <ClCompile Include="OBB.cpp">
-      <Filter>Source Files\Collision</Filter>
+      <Filter>Source Files\Dynamics\Collision</Filter>
     </ClCompile>
     <ClCompile Include="CollisionDetection.cpp">
-      <Filter>Source Files\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsManager.cpp">
-      <Filter>Source Files\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="q3Renderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Dynamics\Collision</Filter>
     </ClCompile>
     <ClCompile Include="JsonLoader.cpp">
       <Filter>Source Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files\Dynamics\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Source Files\Dynamics\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="q3Renderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineComponents.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,25 +129,34 @@
       <Filter>Header Files\CameraComponents</Filter>
     </ClInclude>
     <ClInclude Include="OBB.h">
-      <Filter>Header Files\Collision</Filter>
+      <Filter>Header Files\Dynamics\Collision</Filter>
     </ClInclude>
     <ClInclude Include="CollisionDetection.h">
-      <Filter>Header Files\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Header Files\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsManager.h">
-      <Filter>Header Files\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Def_Math_Types_398.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="q3Renderer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Dynamics\Collision</Filter>
     </ClInclude>
     <ClInclude Include="JsonLoader.h">
       <Filter>Header Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Header Files\Dynamics\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Header Files\Dynamics\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Def_Math_Types_398.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="q3Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineParameters.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineComponents.h">
+      <Filter>Header Files\Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

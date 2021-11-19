@@ -10,7 +10,7 @@ CameraComponent::CameraComponent()
 	FOV_ = 60.0f;
 	aspect_ = 1.0f;
 	z_near_ = 0.01f;
-	z_far_ = 10000.0f;
+	z_far_ = 100000.0f;
 }
 
 CameraComponent::CameraComponent(glm::fvec3 pos, glm::fvec3 forward, 
