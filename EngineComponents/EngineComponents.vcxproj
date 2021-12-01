@@ -163,6 +163,7 @@
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="EngineComponents.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JsonLoader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModelMD.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Def_Math_Types_398.h" />
     <ClInclude Include="EngineComponents.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="JsonLoader.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="ModelMD.h" />
