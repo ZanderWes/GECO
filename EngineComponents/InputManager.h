@@ -1,4 +1,8 @@
 #pragma once
+
+#include <gl/glut.h>
+
+
 class InputManager
 {
 public:
