@@ -4,11 +4,11 @@
 #include <iostream>
 
 
-#include "qu3e/src/dynamics/q3Contact.h"
-#include "qu3e/src/math/q3Mat3.h"
-#include "qu3e/src/math/q3Transform.h"
-#include "qu3e/src/collision/q3Collide.h"
-#include "qu3e/src/collision/q3Collide.cpp"
+#include "Dependancies/qu3e/qu3e/src/dynamics/q3Contact.h"
+#include "Dependancies/qu3e/qu3e/src/math/q3Mat3.h"
+#include "Dependancies/qu3e/qu3e/src/math/q3Transform.h"
+#include "Dependancies/qu3e/qu3e/src/collision/q3Collide.h"
+#include "Dependancies/qu3e/qu3e/src/collision/q3Collide.cpp"
 
 void PhysicsManager::Render(q3Renderer* render)
 {

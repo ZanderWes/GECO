@@ -1,6 +1,6 @@
 #pragma once
 
-#include "qu3e/src/q3.h"
+#include "Dependancies/qu3e/qu3e/src/q3.h"
 #include "GL/freeglut.h"
 
 /**

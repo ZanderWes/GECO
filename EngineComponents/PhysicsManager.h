@@ -4,10 +4,10 @@
 #include <memory>
 
 #include "RigidBody.h"
-#include "qu3e/src/collision/q3Collide.h"
-#include "qu3e/src/dynamics/q3Contact.h"
+#include "Dependancies/qu3e/qu3e/src/collision/q3Collide.h"
+#include "Dependancies/qu3e/qu3e/src/dynamics/q3Contact.h"
 #include "Def_Math_Types_398.h"
-#include "qu3e/src/math/q3Transform.h"
+#include "Dependancies/qu3e/qu3e/src/math/q3Transform.h"
 
 //class q3Transform;
 

@@ -1,10 +1,10 @@
 #include "RigidBody.h"
-#include "qu3e/src/math/q3Mat3.cpp"
-#include "qu3e/src/collision/q3Box.cpp"
-#include "qu3e/src/broadphase/q3BroadPhase.h"
-#include "qu3e/src/dynamics/q3Contact.h"
+#include "Dependancies/qu3e/qu3e/src/math/q3Mat3.cpp"
+#include "Dependancies/qu3e/qu3e/src/collision/q3Box.cpp"
+#include "Dependancies/qu3e/qu3e/src/broadphase/q3BroadPhase.h"
+#include "Dependancies/qu3e/qu3e/src/dynamics/q3Contact.h"
 //#include "qu3e/src/"
-#include "qu3e/src/math/q3Vec3.cpp"
+#include "Dependancies/qu3e/qu3e/src/math/q3Vec3.cpp"
 //#include "qu3e/src/collision/q3Box.h"
 
 

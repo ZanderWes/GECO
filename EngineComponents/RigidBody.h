@@ -3,11 +3,12 @@
 #include <memory>
 
 #include "Def_Math_Types_398.h"
-#include "qu3e/src/math/q3Math.h"
-#include "qu3e/src/math/q3Transform.h"
+#include "Dependancies/qu3e/qu3e/src/math/q3Math.h"
+#include "Dependancies/qu3e/qu3e/src/math/q3Transform.h"
 #include "q3Renderer.h"
 #include "gtc/matrix_transform.hpp"
 #include "gtx/quaternion.hpp"
+
 
 class q3Render;
 struct q3Box;
