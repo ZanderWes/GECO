@@ -30,7 +30,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-!/Dependancies/qu3e/qu3e/src/debug/
+!EngineComponents/Dependancies/qu3e/qu3e/src/debug/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
