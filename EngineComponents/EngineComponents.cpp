@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <GL/glut.h>
+#include "Dependancies/Opengl/freeglut/include/GL/glut.h"
 #include <glm.hpp>
 
 #include "Terrain.h"
@@ -291,8 +292,8 @@ void draw()
 {
     drawBox();
 
-    bF.render();
-    model.drawObjectFrame(frame_count);
+    //bF.render();
+    //model.drawObjectFrame(frame_count);
 }
 
 void drawBox()
