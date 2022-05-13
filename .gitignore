@@ -17,7 +17,7 @@
 mono_crash.*
 
 # Build results
-!/qu3e/src/[Dd]ebug/*
+!/qu3e/qu3e/src/[Dd]ebug/*
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
