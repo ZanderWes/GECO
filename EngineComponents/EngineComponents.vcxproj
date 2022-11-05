@@ -158,9 +158,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraControllerComponent.cpp" />
+    <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="GECO_Main.cpp" />
@@ -171,12 +173,15 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="q3Renderer.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseCollider.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraControllerComponent.h" />
+    <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Def_Math_Types_398.h" />
     <ClInclude Include="ImageLoader.h" />
@@ -187,6 +192,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="q3Renderer.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
