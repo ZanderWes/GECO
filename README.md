@@ -6,7 +6,7 @@ NOTE: This version of GECO requires VS22 to be in x86 when compiling
 
 ##############################################
 
-    PHYSICS COMPONENT
+   PHYSICS COMPONENT
 
 ##############################################
 
@@ -14,7 +14,7 @@ GECO uses a basic solid rigid body onto which physics simulation is applied.
 
 ##############################################
 
-    COLLISIONS COMPONENT
+   COLLISIONS COMPONENT
 
 ##############################################
 
@@ -22,7 +22,7 @@ Currently the physics component of GECO utilizes the collision detection of the 
 
 #############################################
 
-    ANIMATION COMPONENT
+   ANIMATION COMPONENT
 
 #############################################
 
