@@ -30,7 +30,7 @@
 #include "../math/q3Vec3.h"
 #include "../math/q3Mat3.h"
 #include "../math/q3Transform.h"
-#include "../debug/q3Render.h"
+#include "../q3Render.h"
 
 //--------------------------------------------------------------------------------------------------
 // q3MassData

@@ -29,7 +29,7 @@
 #include "q3Body.h"
 #include "q3Contact.h"
 #include "../scene/q3Scene.h"
-#include "../debug/q3Render.h"
+#include "../q3Render.h"
 
 //--------------------------------------------------------------------------------------------------
 // q3ContactManager

@@ -35,6 +35,6 @@
 #include "math/q3Mat3.h"
 #include "math/q3Quaternion.h"
 #include "math/q3Transform.h"
-#include "debug/q3Render.h"
+#include "qu3e/src/q3Render.h"
 
 #endif // Q3_H
