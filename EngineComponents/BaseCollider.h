@@ -9,6 +9,14 @@
 * Till then this is just taking up precious space
 */
 
+
+enum ColliderType
+{
+	NULL_COLLIDER,
+	SPHERE_COLLIDER,
+	BOX_COLLIDER
+};
+
 class BaseCollider
 {
 public:
@@ -27,10 +35,5 @@ private:
 };
 
 
-enum ColliderType 
-{
-	NULL_COLLIDER,
-	SPHERE_COLLIDER,
-	BOX_COLLIDER
-};
+
 
