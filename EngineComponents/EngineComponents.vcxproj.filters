@@ -81,7 +81,7 @@
     <ClCompile Include="BaseCollider.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="ColliderManager.cpp">
+    <ClCompile Include="CollisionManager.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,7 +134,7 @@
     <ClInclude Include="BaseCollider.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderManager.h">
+    <ClInclude Include="CollisionManager.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>
   </ItemGroup>

@@ -162,7 +162,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraControllerComponent.cpp" />
-    <ClCompile Include="ColliderManager.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="GECO_Main.cpp" />
@@ -181,7 +181,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraControllerComponent.h" />
-    <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Def_Math_Types_398.h" />
     <ClInclude Include="ImageLoader.h" />

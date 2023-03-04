@@ -7,15 +7,21 @@
 
 using namespace std;
 
-class ColliderManager
+
+struct CollisionData
+{
+	glm::fvec3 collision_point;
+	glm::fvec3 collision_normal;
+
+};
+
+class CollisionManager
 {
 public:
 
 	//ColliderType getColliderType();
 
 private:
-
-	vector<shared_ptr<SphereCollider>> sphere_collider_list;
 	
 	// Lets not get ahead of ourselves yet
 	//vector<shared_ptr<OBB>> box_collider_list; 
