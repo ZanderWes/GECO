@@ -24,6 +24,7 @@
     <ProjectGuid>{40fad370-b9e8-438d-8c82-b6bdb3b673fe}</ProjectGuid>
     <RootNamespace>Lab4task</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GECO</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -162,7 +163,7 @@
     <ClCompile Include="CameraControllerComponent.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
-    <ClCompile Include="EngineComponents.cpp" />
+    <ClCompile Include="GECO_Main.cpp" />
     <ClCompile Include="JsonLoader.cpp" />
     <ClCompile Include="ModelMD.cpp" />
     <ClCompile Include="OBB.cpp" />
